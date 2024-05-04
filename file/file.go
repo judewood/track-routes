@@ -1,25 +1,30 @@
 package file
 
 import (
-	"encoding/csv"
 	"fmt"
 	"log"
 	"os"
+
+	"github.com/gocarina/gocsv"
 	"github.com/judewood/routeDistances/domain"
+	"github.com/judewood/routeDistances/models"
 )
 
-type FileReader struct{
-    fileName string 
+type FileStruct struct {
+	inputFile string
+	outputFile string
 }
-func NewCsvFileHandler(fileName string) domain.FileHandler {
-	return &FileReader {
-		fileName: fileName,
+
+func NewCsv(inputFile, outputFile string) domain.FileHandler {
+	return &FileStruct{
+		inputFile: inputFile,
+		outputFile: outputFile,
 	}
 }
 
-func (f *FileReader)  ReadFile() [][]string {
+func (f *FileStruct) ReadFile() *[]models.RouteSection {
 	// os.Open() opens file in read-only mode and returns a pointer of type os.File
-	file, err := os.Open(f.fileName)
+	file, err := os.Open(f.inputFile)
 	if err != nil {
 		log.Fatal("Error while reading the file", err)
 	}
@@ -27,18 +32,25 @@ func (f *FileReader)  ReadFile() [][]string {
 	// Closes the file just before exiting this function for any reason
 	defer file.Close()
 
-    // creates a new csv.Reader that reads from the file
-	reader := csv.NewReader(file)
+	routeSections := []models.RouteSection{}
 
-	//skip first line
-	reader.Read()
-
-	// Read all the records from the CSV file
-	// and Returns them as slice of slices of string
-	// and an error if any
-	records, err := reader.ReadAll()
-	if err != nil {
-		fmt.Println("Error reading records")
+	if err := gocsv.UnmarshalFile(file, &routeSections); err != nil {
+		panic(err)
 	}
-	return records
+	return &routeSections
 }
+
+func (f *FileStruct) WriteFile(records *[]models.RouteDistance) {
+	 fmt.Println("hello")
+// to download file inside downloads folder
+file, err := os.Create(f.outputFile)
+if err != nil {
+ // handle error
+ fmt.Println("oops")
+ log.Fatal("Could not create output file ")
+}
+defer file.Close()
+fmt.Printf("records jude %v", records)
+gocsv.MarshalFile(records, file)
+}
+
