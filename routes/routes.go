@@ -1,9 +1,5 @@
 package routes
 
-import (
-	"github.com/judewood/routeDistances/models"
-)
-
 // Enqueue adds an Node to the end of the queue
 func (s *NodeQueue) Enqueue(t Vertex) {
 	s.Lock.Lock()
@@ -91,19 +87,6 @@ func (g *ItemGraph) AddEdge(n1, n2 *Node, weight int) {
 	g.Edges[*n1] = append(g.Edges[*n1], &ed1)
 	g.Edges[*n2] = append(g.Edges[*n2], &ed2)
 	g.Lock.Unlock()
-}
-
-func CreateInputDataJude(input *[]models.RouteSection) *[]InputData {
-	var inputData []InputData
-	for _, v := range *input {
-		item := InputData{
-			Source:      v.Start,
-			Destination: v.End,
-			Weight:      v.Distance,
-		}
-		inputData = append(inputData, item)
-	}
-	return &inputData
 }
 
 func CreateInputGraph(inputData *[]InputData, from, to string) InputGraph {
