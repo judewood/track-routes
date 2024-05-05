@@ -61,7 +61,8 @@ func GetShortestPath(startNode *Node, endNode *Node, g *ItemGraph) (int, int) {
 	for i, j := 0, len(finalArr)-1; i < j; i, j = i+1, j-1 {
 		finalArr[i], finalArr[j] = finalArr[j], finalArr[i]
 	}
-	return len(finalArr), dist[endNode.Value]
+	numTracks := len(finalArr)-1 //one less than the number of nodes
+	return numTracks, dist[endNode.Value]
 
 }
 

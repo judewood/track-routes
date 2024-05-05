@@ -44,7 +44,7 @@ func (s *NodeQueue) Dequeue() *Vertex {
 	return &item
 }
 
-//NewQ Creates New Queue
+// NewQ Creates New Queue
 func (s *NodeQueue) NewQ() *NodeQueue {
 	s.Lock.Lock()
 	s.Items = []Vertex{}
@@ -96,23 +96,23 @@ func (g *ItemGraph) AddEdge(n1, n2 *Node, weight int) {
 func CreateInputDataJude(input *[]models.RouteSection) *[]InputData {
 	var inputData []InputData
 	for _, v := range *input {
- 	item := InputData{
-		Source: v.Start,
-		Destination: v.End,
-		Weight:  v.Distance,
- 	}
-	inputData = append(inputData, item)
+		item := InputData{
+			Source:      v.Start,
+			Destination: v.End,
+			Weight:      v.Distance,
+		}
+		inputData = append(inputData, item)
 	}
 	return &inputData
 }
 
-func CreateInputGraphJude(inputData *[]InputData, from, to string) InputGraph  {
- inputGraph := InputGraph{
-	Graph : *inputData,
-	From : from,
-	To: to,
-}
-return inputGraph
+func CreateInputGraph(inputData *[]InputData, from, to string) InputGraph {
+	inputGraph := InputGraph{
+		Graph: *inputData,
+		From:  from,
+		To:    to,
+	}
+	return inputGraph
 }
 
 func CreateGraph(data InputGraph) *ItemGraph {

@@ -3,8 +3,8 @@ package domain
 import "github.com/judewood/routeDistances/models"
 
 type FileHandler interface {
-	ReadFile() *[]models.RouteSection
-	WriteFile(records *[]models.RouteDistance) 
+	ReadFile() (*[]models.RouteSection, error)
+	WriteFile(records *[]models.RouteDistance) error
 }
 
 

@@ -1,4 +1,4 @@
-package outputhandling
+package outputHandling
 
 import (
 	"fmt"
@@ -19,7 +19,7 @@ func New(fileHandler domain.FileHandler) *OutputStruct {
 }
 
 func (s *OutputStruct) OutputRoutes(inputData *[]routes.InputData) {
-	sampleRoutes := s.GetSampleRoutes()	
+	sampleRoutes := getSampleRoutes()
 	doneChannels := make([]chan models.RouteDistance, len(*sampleRoutes))
 	for i := range doneChannels {
 		doneChannels[i] = make(chan models.RouteDistance)
@@ -27,14 +27,14 @@ func (s *OutputStruct) OutputRoutes(inputData *[]routes.InputData) {
 
 	var results []models.RouteDistance
 	for i, val := range *sampleRoutes {
-		go s.GetResult(val, inputData, doneChannels[i])
+		fmt.Println()
+		go getResult(val, inputData, doneChannels[i])
 		results = append(results, <-doneChannels[i])
 	}
-	fmt.Printf("The results %v ", results)
 	s.fileHandler.WriteFile(&results)
 }
 
-func (s *OutputStruct) GetSampleRoutes() *[]models.StartEnd {
+func getSampleRoutes() *[]models.StartEnd {
 	var outputSample = []models.StartEnd{
 		{
 			Start: "BERKHMD",
@@ -80,13 +80,9 @@ func (s *OutputStruct) GetSampleRoutes() *[]models.StartEnd {
 	return &outputSample
 }
 
-func (s *OutputStruct) GetResult(route models.StartEnd, inputData *[]routes.InputData, doneChan chan models.RouteDistance) {
-	fmt.Printf("Getting shortest route for %s to %s", route.Start, route.End)
-	fmt.Println()
-	//time.Sleep(1 * time.Second)
-
-	inputGraph := routes.CreateInputGraphJude(inputData, route.Start, route.End)
-	k := routes.CreateGraph(inputGraph)
+func getResult(route models.StartEnd, inputData *[]routes.InputData, doneChan chan models.RouteDistance) {
+	inputGraph := routes.CreateInputGraph(inputData, route.Start, route.End)
+	routesGraph := routes.CreateGraph(inputGraph)
 
 	node1 := routes.Node{
 		Value: route.Start,
@@ -94,8 +90,7 @@ func (s *OutputStruct) GetResult(route models.StartEnd, inputData *[]routes.Inpu
 	node2 := routes.Node{
 		Value: route.End,
 	}
-
-	numTracks, distance := routes.GetShortestPath(&node1, &node2, k)
+	numTracks, distance := routes.GetShortestPath(&node1, &node2, routesGraph)
 
 	r := models.RouteDistance{
 		Start:     route.Start,
@@ -103,6 +98,6 @@ func (s *OutputStruct) GetResult(route models.StartEnd, inputData *[]routes.Inpu
 		Distance:  distance,
 		NumTracks: numTracks,
 	}
+	fmt.Printf("Route for %s to %s is %v with num tracks %v", route.Start, route.End, r.Distance, r.NumTracks)
 	doneChan <- r
 }
-
