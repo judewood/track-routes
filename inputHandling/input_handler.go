@@ -10,10 +10,10 @@ import (
 )
 
 type InputStruct struct {
-	fileHandler domain.FileHandler
+	fileHandler domain.FileStore
 }
 
-func New(fileHandler domain.FileHandler) *InputStruct {
+func New(fileHandler domain.FileStore) *InputStruct {
 	return &InputStruct{
 		fileHandler: fileHandler,
 	}
@@ -53,7 +53,7 @@ func (d *InputStruct) ApplyFilter(input *[]models.RouteSection) *[]models.RouteS
 				if (v.Start == u.Start && v.End == u.End) || (v.Start == u.End && v.End == u.Start) {
 					if v.Distance != u.Distance {
 						fmt.Printf("\nMultiple distances for %s to %s. (%v, %v) ", v.Start, v.End, v.Distance, u.Distance)
-						v.Distance =  minPositiveValue(v.Distance, u.Distance)
+						v.Distance = minPositiveValue(v.Distance, u.Distance)
 						fmt.Printf("Using %v", v.Distance)
 					}
 					skip = true
@@ -69,10 +69,10 @@ func (d *InputStruct) ApplyFilter(input *[]models.RouteSection) *[]models.RouteS
 }
 
 func minPositiveValue(a, b int) int {
-	if a <= 0  {
+	if a <= 0 {
 		return b
 	}
-	if a < b || b == 0{
+	if a < b || b == 0 {
 		return a
 	}
 	return b

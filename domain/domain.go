@@ -2,13 +2,8 @@ package domain
 
 import "github.com/judewood/routeDistances/models"
 
-type FileHandler interface {
+// FileStore provides Read and Write methods for files
+type FileStore interface {
 	ReadFile() (*[]models.RouteSection, error)
-	WriteFile(records *[]models.RouteDistance) error
+	WriteFile(records *[]models.RouteDistance) (int, error)
 }
-
-
-type ApplyFilter interface {
-	Apply(*[]models.RouteSection) *[]models.RouteSection
-}
-

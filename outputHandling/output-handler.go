@@ -9,10 +9,10 @@ import (
 )
 
 type OutputStruct struct {
-	fileHandler domain.FileHandler
+	fileHandler domain.FileStore
 }
 
-func New(fileHandler domain.FileHandler) *OutputStruct {
+func New(fileHandler domain.FileStore) *OutputStruct {
 	return &OutputStruct{
 		fileHandler: fileHandler,
 	}

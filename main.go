@@ -4,13 +4,13 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/judewood/routeDistances/file"
+	"github.com/judewood/routeDistances/fileStore"
 	"github.com/judewood/routeDistances/inputHandling"
 	"github.com/judewood/routeDistances/outputHandling"
 )
 
 func main() {
-	fileHandler := file.NewCsv("./input/Tracks.csv", "./output/sample-output.csv")
+	fileHandler := fileStore.NewCsv("./input/Tracks.csv", "./output/sample-output.csv")
 	inputHandler := inputHandling.New(fileHandler)
 	outputHandler := outputHandling.New(fileHandler)
 	fmt.Println("Getting and formatting input route sections")
