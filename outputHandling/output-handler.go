@@ -9,32 +9,35 @@ import (
 )
 
 type OutputStruct struct {
-	fileHandler domain.FileHandler
+	fileHandler domain.FileStore
 }
 
-func New(fileHandler domain.FileHandler) *OutputStruct {
+func New(fileHandler domain.FileStore) *OutputStruct {
 	return &OutputStruct{
 		fileHandler: fileHandler,
 	}
 }
 
-func (s *OutputStruct) OutputRoutes(inputData *[]routes.InputData) {
-	sampleRoutes := getSampleRoutes()
-	doneChannels := make([]chan models.RouteDistance, len(*sampleRoutes))
+func (s *OutputStruct) OutputRoutes(inputData *[]routes.InputData, routes *[]models.StartEnd ) (int, error){
+	doneChannels := make([]chan models.RouteDistance, len(*routes))
 	for i := range doneChannels {
 		doneChannels[i] = make(chan models.RouteDistance)
 	}
 
 	var results []models.RouteDistance
-	for i, val := range *sampleRoutes {
+	for i, val := range *routes {
 		fmt.Println()
 		go getResult(val, inputData, doneChannels[i])
 		results = append(results, <-doneChannels[i])
 	}
-	s.fileHandler.WriteFile(&results)
+	numRecords, err := s.fileHandler.WriteFile(&results)
+	if err != nil {
+		return 0, err
+	}
+	return numRecords, nil
 }
 
-func getSampleRoutes() *[]models.StartEnd {
+func GetSampleRoutes() *[]models.StartEnd {
 	var outputSample = []models.StartEnd{
 		{
 			Start: "BERKHMD",

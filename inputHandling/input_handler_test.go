@@ -4,15 +4,18 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/judewood/routeDistances/mocks"
 	"github.com/judewood/routeDistances/models"
+	"github.com/judewood/routeDistances/routes"
+	"github.com/stretchr/testify/assert"
 )
 
-func testApplyFilter(t *testing.T) {
+func TestApplyFilter(t *testing.T) {
 	var inputData = []models.RouteSection{
 		{
 			Start:        "abc  ",
 			End:          "XYz",
-			Distance:     123,
+			Distance:     99,
 			PassengerUse: "Y",
 		},
 		{ //duplicate of above
@@ -36,7 +39,7 @@ func testApplyFilter(t *testing.T) {
 		{
 			Start:        "ABC",
 			End:          "XYZ",
-			Distance:     99,
+			Distance:     98,
 			PassengerUse: "Y",
 		},
 		{
@@ -45,10 +48,10 @@ func testApplyFilter(t *testing.T) {
 			Distance:     123,
 			PassengerUse: "Y",
 		},
-		{
+		{ //not a passenger route
 			Start:        "ABC",
-			End:          "RST",
-			Distance:     123,
+			End:          "xYz",
+			Distance:     66,
 			PassengerUse: "not y",
 		},
 	}
@@ -66,23 +69,67 @@ func testApplyFilter(t *testing.T) {
 			Distance:     123,
 			PassengerUse: "Y",
 		},
-		{
-			Start:        "ABC",
-			End:          "RST",
-			Distance:     123,
-			PassengerUse: "not y",
-		},
 	}
 
-	filter := &InputStruct{}
-
-	res1 := filter.ApplyFilter(&inputData)
-	res := *res1
+	res := *(ApplyFilter(&inputData))
 	for i, v := range expectedOutputData {
 		if v != res[i] {
-			fmt.Println("filter test failed")
+			fmt.Printf("\n ApplyFilter test failed index: %v, %v %v", i, v, res[i])
 			t.Fail()
 			return
 		}
 	}
+}
+
+func TestGetInputData(t *testing.T) {
+	var fileData = []models.RouteSection{
+		{
+			Start:        "A",
+			End:          "B",
+			Distance:     4,
+			PassengerUse: "Y",
+		},
+		{
+			Start:        "A",
+			End:          "C",
+			Distance:     2,
+			PassengerUse: "Y",
+		},
+		{
+			Start:        "B",
+			End:          "C",
+			Distance:     1,
+			PassengerUse: "Y",
+		},
+	}
+
+	expectedInputData := []routes.InputData{
+		{
+			Source:      "A",
+			Destination: "B",
+			Weight:      4,
+		},
+		{
+			Source:      "A",
+			Destination: "C",
+			Weight:      2,
+		},
+		{
+			Source:      "B",
+			Destination: "C",
+			Weight:      1,
+		},
+	}
+
+	mockFileStore := new(mocks.FileStore)
+	mockFileStore.On("ReadFile").Return(&fileData, nil)
+
+	inputHandler := New(mockFileStore)
+	inputData, err := inputHandler.GetInputData()
+
+	assert.NoError(t, err)
+	fmt.Println(inputData)
+	assert.Equal(t, &expectedInputData, inputData)
+	mockFileStore.AssertExpectations(t)
+	mockFileStore.AssertNumberOfCalls(t, "ReadFile", 1)
 }

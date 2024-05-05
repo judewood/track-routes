@@ -1,4 +1,4 @@
-package file
+package fileStore
 
 import (
 	"log"
@@ -9,19 +9,19 @@ import (
 	"github.com/judewood/routeDistances/models"
 )
 
-type FileStruct struct {
+type FileStore struct {
 	inputFile  string
 	outputFile string
 }
 
-func NewCsv(inputFile, outputFile string) domain.FileHandler {
-	return &FileStruct{
+func NewCsv(inputFile, outputFile string) domain.FileStore {
+	return &FileStore{
 		inputFile:  inputFile,
 		outputFile: outputFile,
 	}
 }
 
-func (f *FileStruct) ReadFile() (*[]models.RouteSection, error) {
+func (f *FileStore) ReadFile() (*[]models.RouteSection, error) {
 	// open file in read-only mode
 	file, err := os.Open(f.inputFile)
 	if err != nil {
@@ -41,12 +41,12 @@ func (f *FileStruct) ReadFile() (*[]models.RouteSection, error) {
 	return &routeSections, nil
 }
 
-func (f *FileStruct) WriteFile(records *[]models.RouteDistance) error {
+func (f *FileStore) WriteFile(records *[]models.RouteDistance) (int, error) {
 	file, err := os.Create(f.outputFile)
 	if err != nil {
 		// handle error
 		log.Fatal("Could not create output file")
-		return err
+		return 0, err
 	}
 
 	// Ensure file is closed before exiting function
@@ -54,7 +54,7 @@ func (f *FileStruct) WriteFile(records *[]models.RouteDistance) error {
 	err = gocsv.MarshalFile(records, file)
 	if err != nil {
 		log.Fatal("Error while writing output file", err)
-		return err
+		return 0, err
 	}
-	return nil
+	return len(*records), nil
 }
