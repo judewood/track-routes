@@ -24,7 +24,7 @@ func (d *InputStruct) GetInputData() (*[]routes.InputData, error) {
 	if err != nil {
 		return &[]routes.InputData{}, err
 	}
-	routeSections := d.ApplyFilter(input)
+	routeSections := ApplyFilter(input)
 	inputData := createInputData(routeSections)
 	return inputData, nil
 }
@@ -38,7 +38,7 @@ func createInputData(routeSections *[]models.RouteSection) *[]routes.InputData {
 	return &inputData
 }
 
-func (d *InputStruct) ApplyFilter(input *[]models.RouteSection) *[]models.RouteSection {
+func ApplyFilter(input *[]models.RouteSection) *[]models.RouteSection {
 	var distinct []models.RouteSection
 
 	for _, v := range *input {

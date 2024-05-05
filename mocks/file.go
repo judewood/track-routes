@@ -2,7 +2,6 @@ package mocks
 
 import (
 	"fmt"
-	"errors"
 
 	"github.com/judewood/routeDistances/models"
 	mocks "github.com/stretchr/testify/mock"
