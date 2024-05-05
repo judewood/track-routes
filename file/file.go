@@ -1,7 +1,6 @@
 package file
 
 import (
-	"fmt"
 	"log"
 	"os"
 
@@ -11,46 +10,51 @@ import (
 )
 
 type FileStruct struct {
-	inputFile string
+	inputFile  string
 	outputFile string
 }
 
 func NewCsv(inputFile, outputFile string) domain.FileHandler {
 	return &FileStruct{
-		inputFile: inputFile,
+		inputFile:  inputFile,
 		outputFile: outputFile,
 	}
 }
 
-func (f *FileStruct) ReadFile() *[]models.RouteSection {
-	// os.Open() opens file in read-only mode and returns a pointer of type os.File
+func (f *FileStruct) ReadFile() (*[]models.RouteSection, error) {
+	// open file in read-only mode
 	file, err := os.Open(f.inputFile)
 	if err != nil {
 		log.Fatal("Error while reading the file", err)
+		return &[]models.RouteSection{}, err
 	}
 
-	// Closes the file just before exiting this function for any reason
+	// Ensure file is closed before exiting function
 	defer file.Close()
 
 	routeSections := []models.RouteSection{}
-
-	if err := gocsv.UnmarshalFile(file, &routeSections); err != nil {
-		panic(err)
+	err = gocsv.UnmarshalFile(file, &routeSections)
+	if err != nil {
+		log.Fatal("Error while reading the file", err)
+		return &[]models.RouteSection{}, err
 	}
-	return &routeSections
+	return &routeSections, nil
 }
 
-func (f *FileStruct) WriteFile(records *[]models.RouteDistance) {
-	 fmt.Println("hello")
-// to download file inside downloads folder
-file, err := os.Create(f.outputFile)
-if err != nil {
- // handle error
- fmt.Println("oops")
- log.Fatal("Could not create output file ")
-}
-defer file.Close()
-fmt.Printf("records jude %v", records)
-gocsv.MarshalFile(records, file)
-}
+func (f *FileStruct) WriteFile(records *[]models.RouteDistance) error {
+	file, err := os.Create(f.outputFile)
+	if err != nil {
+		// handle error
+		log.Fatal("Could not create output file")
+		return err
+	}
 
+	// Ensure file is closed before exiting function
+	defer file.Close()
+	err = gocsv.MarshalFile(records, file)
+	if err != nil {
+		log.Fatal("Error while writing output file", err)
+		return err
+	}
+	return nil
+}

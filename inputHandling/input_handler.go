@@ -15,24 +15,28 @@ type InputStruct struct {
 
 func New(fileHandler domain.FileHandler) *InputStruct {
 	return &InputStruct{
-		fileHandler : fileHandler,
+		fileHandler: fileHandler,
 	}
 }
 
-func (d *InputStruct) GetInputData() *[]routes.InputData {
-	routeSections := d.fileHandler.ReadFile()
-	deduplicatedData := d.ApplyFilter(routeSections)
-	inputData := func() *[]routes.InputData {
-		var inputData []routes.InputData
-		for _, v := range *(*[]models.RouteSection)(deduplicatedData) {
-			item := routes.InputData{Source: v.Start, Destination: v.End, Weight: v.Distance}
-			inputData = append(inputData, item)
-		}
-		return &inputData
-	}()
-	return inputData
+func (d *InputStruct) GetInputData() (*[]routes.InputData, error) {
+	input, err := d.fileHandler.ReadFile()
+	if err != nil {
+		return &[]routes.InputData{}, err
+	}
+	routeSections := d.ApplyFilter(input)
+	inputData := createInputData(routeSections)
+	return inputData, nil
 }
 
+func createInputData(routeSections *[]models.RouteSection) *[]routes.InputData {
+	var inputData []routes.InputData
+	for _, v := range *(*[]models.RouteSection)(routeSections) {
+		item := routes.InputData{Source: v.Start, Destination: v.End, Weight: v.Distance}
+		inputData = append(inputData, item)
+	}
+	return &inputData
+}
 
 func (d *InputStruct) ApplyFilter(input *[]models.RouteSection) *[]models.RouteSection {
 	var distinct []models.RouteSection
@@ -48,8 +52,9 @@ func (d *InputStruct) ApplyFilter(input *[]models.RouteSection) *[]models.RouteS
 			for _, u := range distinct {
 				if (v.Start == u.Start && v.End == u.End) || (v.Start == u.End && v.End == u.Start) {
 					if v.Distance != u.Distance {
-						fmt.Printf("different distances found for same route section. \n Picking shorter distance \n %v,  \n %v", u, v)
-						v.Distance = min(v.Distance, u.Distance)
+						fmt.Printf("\nMultiple distances for %s to %s. (%v, %v) ", v.Start, v.End, v.Distance, u.Distance)
+						v.Distance =  minPositiveValue(v.Distance, u.Distance)
+						fmt.Printf("Using %v", v.Distance)
 					}
 					skip = true
 					break
@@ -63,8 +68,11 @@ func (d *InputStruct) ApplyFilter(input *[]models.RouteSection) *[]models.RouteS
 	return &distinct
 }
 
-func min(a, b int) int {
-	if a < b {
+func minPositiveValue(a, b int) int {
+	if a <= 0  {
+		return b
+	}
+	if a < b || b == 0{
 		return a
 	}
 	return b
