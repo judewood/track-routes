@@ -10,7 +10,8 @@ import (
 )
 
 func main() {
-	fileHandler := fileStore.NewCsv("./input/Tracks.csv", "./output/sample-output.csv")
+	outputFile := "./output/sample-output.csv"
+	fileHandler := fileStore.NewCsv("./input/Tracks.csv", outputFile)
 	inputHandler := inputHandling.New(fileHandler)
 	outputHandler := outputHandling.New(fileHandler)
 	fmt.Println("Getting and formatting input route sections")
@@ -19,6 +20,11 @@ func main() {
 		log.Fatal(err)
 		panic(err)
 	}
-	fmt.Printf("\n\nCalculating and outputting shortest routes to %s", "./output/sample-output.csv")
-	outputHandler.OutputRoutes(inputData)
+	fmt.Printf("\n\nCalculating and outputting shortest routes to %s", outputFile)
+	numRecords, err := outputHandler.OutputRoutes(inputData, outputHandling.GetSampleRoutes())
+	if err != nil {
+		log.Fatal(err)
+		panic(err)
+	}
+	fmt.Println(numRecords, "written to", outputFile)
 }
