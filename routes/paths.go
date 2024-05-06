@@ -1,6 +1,7 @@
 package routes
 
 import (
+
 	"math"
 	"sync"
 )
@@ -42,8 +43,6 @@ func GetShortestPath(startNode *Node, endNode *Node, g *ItemGraph) (int, int) {
 	visited := make(map[string]bool)
 	dist := make(map[string]int)
 	prev := make(map[string]string)
-	//pq := make(PriorityQueue, 1)
-	//heap.Init(&pq)
 	q := NodeQueue{}
 	pq := q.NewQ()
 	start := Vertex{
@@ -55,7 +54,6 @@ func GetShortestPath(startNode *Node, endNode *Node, g *ItemGraph) (int, int) {
 	}
 	dist[startNode.Value] = start.Distance
 	pq.Enqueue(start)
-	//im := 0
 	for !pq.IsEmpty() {
 		v := pq.Dequeue()
 		if visited[v.Node.Value] {
@@ -75,7 +73,6 @@ func GetShortestPath(startNode *Node, endNode *Node, g *ItemGraph) (int, int) {
 					prev[val.Node.Value] = v.Node.Value
 					pq.Enqueue(store)
 				}
-				//visited[val.Node.value] = true
 			}
 		}
 	}
@@ -90,6 +87,11 @@ func GetShortestPath(startNode *Node, endNode *Node, g *ItemGraph) (int, int) {
 	for i, j := 0, len(finalArr)-1; i < j; i, j = i+1, j-1 {
 		finalArr[i], finalArr[j] = finalArr[j], finalArr[i]
 	}
+	// print the route for debugging
+	// for _, f := range finalArr {
+	// 	fmt.Println(f)
+	// }
+	
 	numTracks := len(finalArr)-1 //one less than the number of nodes
 	return numTracks, dist[endNode.Value]
 
