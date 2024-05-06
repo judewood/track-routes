@@ -26,5 +26,5 @@ func main() {
 		log.Fatal(err)
 		panic(err)
 	}
-	fmt.Println(numRecords, "written to", outputFile)
+	fmt.Println(numRecords, "routes written to", outputFile)
 }

@@ -35,10 +35,10 @@ func TestOutputRoutes(t *testing.T) {
 			Start: "A",
 			End:   "B",
 		},
-				{
+		{
 			Start: "C",
 			End:   "B",
-		},			{
+		}, {
 			Start: "A",
 			End:   "C",
 		},
@@ -55,5 +55,39 @@ func TestOutputRoutes(t *testing.T) {
 	assert.Equal(t, 3, numRecords)
 	mockFileStore.AssertExpectations(t)
 	mockFileStore.AssertNumberOfCalls(t, "WriteFile", 1)
-
 }
+
+// func TestUnconnectedStartAndEnd(t *testing.T) {
+// 	inputData := []routes.InputData{
+// 		{
+// 			Source:      "A",
+// 			Destination: "B",
+// 			Weight:      4,
+// 		},
+// 		{
+// 			Source:      "X",
+// 			Destination: "Y",
+// 			Weight:      2,
+// 		},
+// 	}
+
+// 	sampleRoutes := []models.StartEnd{
+// 		{
+// 			Start: "A",
+// 			End:   "X",
+// 		},
+// 	}
+
+// 	fmt.Println("Testing unconnected nodes")
+// 	mockFileStore := new(mocks.FileStore)
+// 	mockFileStore.On("WriteFile").Return(0, nil) //need to add arguments here
+
+// 	outputHandler := New(mockFileStore)
+// 	numRecords, err := outputHandler.OutputRoutes(&inputData, &sampleRoutes)
+
+// 	assert.NoError(t, err)
+// 	fmt.Println(inputData)
+// 	assert.Equal(t, 0, numRecords)
+// 	mockFileStore.AssertExpectations(t)
+// 	mockFileStore.AssertNumberOfCalls(t, "WriteFile", 1)
+// }
