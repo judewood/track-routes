@@ -5,6 +5,39 @@ import (
 	"sync"
 )
 
+func NodesAreConnected(startNode *Node, endNode *Node, g *ItemGraph, routeSectionCount int) (bool) {
+	visited := make(map[string]bool)
+	q := NodeQueue{}
+	pq := q.NewQ()
+	start := Vertex{
+		Node:     startNode,
+		Distance: 0,
+	}
+	pq.Enqueue(start)
+	for !pq.IsEmpty() {
+		v := pq.Dequeue() //take next node form the queue
+		if visited[v.Node.Value] {
+			continue
+		}
+		visited[v.Node.Value] = true  //and mark it as visited
+		near := g.Edges[*v.Node]  //get its neighbours
+		for _, val := range near {
+			if(val.Node.Value == endNode.Value) {
+				return true
+			}
+			if !visited[val.Node.Value] {
+				vertex := Vertex{
+					Node:     val.Node,
+					Distance: 0,
+				}
+				pq.Enqueue(vertex) //add not visited node to the queue
+			}
+		}
+	}
+	return false
+}
+
+
 func GetShortestPath(startNode *Node, endNode *Node, g *ItemGraph) (int, int) {
 	visited := make(map[string]bool)
 	dist := make(map[string]int)
@@ -39,7 +72,6 @@ func GetShortestPath(startNode *Node, endNode *Node, g *ItemGraph) (int, int) {
 						Distance: dist[v.Node.Value] + val.Weight,
 					}
 					dist[val.Node.Value] = dist[v.Node.Value] + val.Weight
-					//prev[val.Node.Value] = fmt.Sprintf("->%s", v.Node.Value)
 					prev[val.Node.Value] = v.Node.Value
 					pq.Enqueue(store)
 				}
@@ -47,8 +79,6 @@ func GetShortestPath(startNode *Node, endNode *Node, g *ItemGraph) (int, int) {
 			}
 		}
 	}
-	//fmt.Println(dist)
-	//fmt.Println(prev)
 	pathVal := prev[endNode.Value]
 	var finalArr []string
 	finalArr = append(finalArr, endNode.Value)
@@ -57,7 +87,6 @@ func GetShortestPath(startNode *Node, endNode *Node, g *ItemGraph) (int, int) {
 		pathVal = prev[pathVal]
 	}
 	finalArr = append(finalArr, pathVal)
-	//fmt.Println("final", finalArr)
 	for i, j := 0, len(finalArr)-1; i < j; i, j = i+1, j-1 {
 		finalArr[i], finalArr[j] = finalArr[j], finalArr[i]
 	}

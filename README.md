@@ -7,21 +7,29 @@ Uses an implementation pf Dijkstra's algorithm based on this [repo](https://gith
 
 # Assumptions and Limitations
 
-The calculation assumes
+## Assumptions
+The calculation assumes:
 
 1. Only route sections where PASSENGER_USE equates to yes are considered since this calculation is for a railway timetable
 
-2. I am assuming that the calculation is for non-electric trains so the value of ELECTRIC is ignored.
+2. The calculation is for non-electric trains so the value of ELECTRIC is ignored since electric trains can only travel on electric lines
 
-3. I am assuming that the LINE_CODE is not relevant and that trains can switch between LINE_CODES at any TIPLOC. This may be incorrect but I am unable to find what these LINE_CODES are
+3. Trains can switch lines at TIPLOC locations using points. I am assuming therefore that the LINE_CODE is not relevant and that trains can switch between LINE_CODES at any TIPLOC. This may be incorrect but I am unable to find what these LINE_CODES are
 
 4. Some pairs of route sections have multiple defined distances and some of these are zero. It seems illogical for zero to be correct and we want the shortest route. For these pairs the code picks the shortest non-zero distance
 
-Limitations
+## Limitations
 
-1. Currently not handling pairs of TIPLOCs for which there is no connecting route eg PHBR  to RYDP. Working on a fix
+1. Currently not producing identical sample answers to the given ones. The results are similar so likely due to the above assumptions. I am investigating this
 
-2. Currently not producing identical sample answers to the given ones. The results are similar so likely due to the above assumptions. I am investigating this
+## Further improvements
+
+1. Full unit test coverage
+2. Move graph related models to models package
+3. Benchmark parallel vs non parallel code to see what the improvement is
+4. Cache non-connected TIPLOC pairs to a lookup file to speed up later runs.
+5. Create a CSV reader based on the library one that rejects not needed rows before pulling them into memory to save memory usage for large data sets
+
 
 # Pre-requisites
 

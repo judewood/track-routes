@@ -18,7 +18,7 @@ func New(fileHandler domain.FileStore) *OutputStruct {
 	}
 }
 
-func (s *OutputStruct) OutputRoutes(inputData *[]routes.InputData, routes *[]models.StartEnd ) (int, error){
+func (s *OutputStruct) OutputRoutes(inputData *[]routes.InputData, routes *[]models.StartEnd) (int, error) {
 	doneChannels := make([]chan models.RouteDistance, len(*routes))
 	for i := range doneChannels {
 		doneChannels[i] = make(chan models.RouteDistance)
@@ -75,10 +75,10 @@ func GetSampleRoutes() *[]models.StartEnd {
 			Start: "THURSO",
 			End:   "PENZNCE",
 		},
-		// {
-		// 	Start: "PHBR",
-		// 	End:   "RYDP",
-		// },
+		{
+			Start: "PHBR",
+			End:   "RYDP",
+		},
 	}
 	return &outputSample
 }
@@ -92,6 +92,18 @@ func getResult(route models.StartEnd, inputData *[]routes.InputData, doneChan ch
 	}
 	node2 := routes.Node{
 		Value: route.End,
+	}
+	nodesAreConnected := routes.NodesAreConnected(&node1, &node2, routesGraph, len(*inputData))
+	if !nodesAreConnected {
+		fmt.Printf("TIPLOCs %s and %s are not connected. Setting distance to -1", node1.Value, node2.Value)
+		unconnected := models.RouteDistance{
+			Start:     route.Start,
+			End:       route.End,
+			Distance:  -1,
+			NumTracks: -1,
+		}
+		doneChan <- unconnected
+		return
 	}
 	numTracks, distance := routes.GetShortestPath(&node1, &node2, routesGraph)
 

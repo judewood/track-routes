@@ -1,8 +1,10 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/judewood/routeDistances/fileStore"
 	"github.com/judewood/routeDistances/inputHandling"
@@ -11,7 +13,11 @@ import (
 
 func main() {
 	outputFile := "./output/sample-output.csv"
-	fileHandler := fileStore.NewCsv("./input/Tracks.csv", outputFile)
+	inputFile :=  "./input/Tracks.csv"
+	fmt.Printf("\n\nCalculating and outputting shortest routes to %s", outputFile)
+	fmt.Print("\nPress 'Enter' to continue...")
+  	bufio.NewReader(os.Stdin).ReadBytes('\n') 
+	fileHandler := fileStore.NewCsv(inputFile, outputFile)
 	inputHandler := inputHandling.New(fileHandler)
 	outputHandler := outputHandling.New(fileHandler)
 	fmt.Println("Getting and formatting input route sections")
@@ -26,5 +32,5 @@ func main() {
 		log.Fatal(err)
 		panic(err)
 	}
-	fmt.Println("\n", numRecords, "routes written to", outputFile)
+	fmt.Printf("\n %v Routes written to %s", numRecords, outputFile)
 }
