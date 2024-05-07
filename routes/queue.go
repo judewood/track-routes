@@ -10,9 +10,9 @@ type NodeQueue struct {
 // Enqueue adds an Node to the end of the queue
 func (s *NodeQueue) Enqueue(t Vertex) {
 	s.Lock.Lock()
+	defer s.Lock.Unlock()
 	if len(s.Items) == 0 {
 		s.Items = append(s.Items, t)
-		s.Lock.Unlock()
 		return
 	}
 	var insertFlag bool
@@ -34,24 +34,22 @@ func (s *NodeQueue) Enqueue(t Vertex) {
 	if !insertFlag {
 		s.Items = append(s.Items, t)
 	}
-	//s.items = append(s.items, t)
-	s.Lock.Unlock()
 }
 
 // Dequeue removes an Node from the start of the queue
 func (s *NodeQueue) Dequeue() *Vertex {
 	s.Lock.Lock()
+	defer s.Lock.Unlock()
 	item := s.Items[0]
 	s.Items = s.Items[1:len(s.Items)]
-	s.Lock.Unlock()
 	return &item
 }
 
 // NewQ Creates New Queue
 func (s *NodeQueue) NewQ() *NodeQueue {
 	s.Lock.Lock()
+	defer s.Lock.Unlock()
 	s.Items = []Vertex{}
-	s.Lock.Unlock()
 	return s
 }
 

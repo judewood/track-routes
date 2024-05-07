@@ -11,13 +11,14 @@ type ItemGraph struct {
 // AddNode adds a node to the graph
 func (g *ItemGraph) AddNode(n *Node) {
 	g.Lock.Lock()
+	defer g.Lock.Unlock()
 	g.Nodes = append(g.Nodes, n)
-	g.Lock.Unlock()
 }
 
 // AddEdge adds an edge to the graph
 func (g *ItemGraph) AddEdge(n1, n2 *Node, weight int) {
 	g.Lock.Lock()
+	defer g.Lock.Unlock()
 	if g.Edges == nil {
 		g.Edges = make(map[Node][]*Edge)
 	}
@@ -32,7 +33,6 @@ func (g *ItemGraph) AddEdge(n1, n2 *Node, weight int) {
 	}
 	g.Edges[*n1] = append(g.Edges[*n1], &ed1)
 	g.Edges[*n2] = append(g.Edges[*n2], &ed2)
-	g.Lock.Unlock()
 }
 
 func CreateInputGraph(inputData *[]InputData, from, to string) InputGraph {
