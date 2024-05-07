@@ -1,5 +1,12 @@
 package routes
 
+import "sync"
+
+type ItemGraph struct {
+	Nodes []*Node
+	Edges map[Node][]*Edge
+	Lock  sync.RWMutex
+}
 
 // AddNode adds a node to the graph
 func (g *ItemGraph) AddNode(n *Node) {

@@ -1,12 +1,10 @@
 package routes
 
 import (
-
 	"math"
-	"sync"
 )
 
-func NodesAreConnected(startNode *Node, endNode *Node, g *ItemGraph, routeSectionCount int) (bool) {
+func NodesAreConnected(startNode *Node, endNode *Node, g *ItemGraph, routeSectionCount int) bool {
 	visited := make(map[string]bool)
 	q := NodeQueue{}
 	pq := q.NewQ()
@@ -20,10 +18,10 @@ func NodesAreConnected(startNode *Node, endNode *Node, g *ItemGraph, routeSectio
 		if visited[v.Node.Value] {
 			continue
 		}
-		visited[v.Node.Value] = true  //and mark it as visited
-		near := g.Edges[*v.Node]  //get its neighbours
+		visited[v.Node.Value] = true //and mark it as visited
+		near := g.Edges[*v.Node]     //get its neighbours
 		for _, val := range near {
-			if(val.Node.Value == endNode.Value) {
+			if val.Node.Value == endNode.Value {
 				return true
 			}
 			if !visited[val.Node.Value] {
@@ -37,7 +35,6 @@ func NodesAreConnected(startNode *Node, endNode *Node, g *ItemGraph, routeSectio
 	}
 	return false
 }
-
 
 func GetShortestPath(startNode *Node, endNode *Node, g *ItemGraph) (int, int) {
 	visited := make(map[string]bool)
@@ -91,8 +88,8 @@ func GetShortestPath(startNode *Node, endNode *Node, g *ItemGraph) (int, int) {
 	// for _, f := range finalArr {
 	// 	fmt.Println(f)
 	// }
-	
-	numTracks := len(finalArr)-1 //one less than the number of nodes
+
+	numTracks := len(finalArr) - 1 //one less than the number of nodes
 	return numTracks, dist[endNode.Value]
 
 }
@@ -111,18 +108,7 @@ type Vertex struct {
 	Distance int
 }
 
-type ItemGraph struct {
-	Nodes []*Node
-	Edges map[Node][]*Edge
-	Lock  sync.RWMutex
-}
-
 type PriorityQueue []*Vertex
-
-type NodeQueue struct {
-	Items []Vertex
-	Lock  sync.RWMutex
-}
 
 type InputGraph struct {
 	Graph []InputData `json:"graph"`

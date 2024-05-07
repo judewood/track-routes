@@ -1,5 +1,12 @@
 package routes
 
+import "sync"
+
+type NodeQueue struct {
+	Items []Vertex
+	Lock  sync.RWMutex
+}
+
 // Enqueue adds an Node to the end of the queue
 func (s *NodeQueue) Enqueue(t Vertex) {
 	s.Lock.Lock()
