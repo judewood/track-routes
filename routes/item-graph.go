@@ -8,6 +8,26 @@ type ItemGraph struct {
 	Lock  sync.RWMutex
 }
 
+func CreateGraph(data InputGraph) *ItemGraph {
+	var g ItemGraph
+	nodes := make(map[string]*Node)
+	for _, v := range data.Graph {
+		if _, found := nodes[v.Source]; !found {
+			nA := Node{v.Source}
+			nodes[v.Source] = &nA
+			g.AddNode(&nA)
+		}
+		if _, found := nodes[v.Destination]; !found {
+			nA := Node{v.Destination}
+			nodes[v.Destination] = &nA
+			g.AddNode(&nA)
+		}
+		g.AddEdge(nodes[v.Source], nodes[v.Destination], v.Weight)
+	}
+	return &g
+}
+
+
 // AddNode adds a node to the graph
 func (g *ItemGraph) AddNode(n *Node) {
 	g.Lock.Lock()
@@ -35,30 +55,3 @@ func (g *ItemGraph) AddEdge(n1, n2 *Node, weight int) {
 	g.Edges[*n2] = append(g.Edges[*n2], &ed2)
 }
 
-func CreateInputGraph(inputData *[]InputData, from, to string) InputGraph {
-	inputGraph := InputGraph{
-		Graph: *inputData,
-		From:  from,
-		To:    to,
-	}
-	return inputGraph
-}
-
-func CreateGraph(data InputGraph) *ItemGraph {
-	var g ItemGraph
-	nodes := make(map[string]*Node)
-	for _, v := range data.Graph {
-		if _, found := nodes[v.Source]; !found {
-			nA := Node{v.Source}
-			nodes[v.Source] = &nA
-			g.AddNode(&nA)
-		}
-		if _, found := nodes[v.Destination]; !found {
-			nA := Node{v.Destination}
-			nodes[v.Destination] = &nA
-			g.AddNode(&nA)
-		}
-		g.AddEdge(nodes[v.Source], nodes[v.Destination], v.Weight)
-	}
-	return &g
-}

@@ -110,12 +110,6 @@ type Vertex struct {
 
 type PriorityQueue []*Vertex
 
-type InputGraph struct {
-	Graph []InputData `json:"graph"`
-	From  string      `json:"from"`
-	To    string      `json:"to"`
-}
-
 type InputData struct {
 	Source      string `json:"source"`
 	Destination string `json:"destination"`
