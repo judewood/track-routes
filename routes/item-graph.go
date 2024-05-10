@@ -12,21 +12,20 @@ func CreateGraph(data InputGraph) *ItemGraph {
 	var g ItemGraph
 	nodes := make(map[string]*Node)
 	for _, v := range data.Graph {
-		if _, found := nodes[v.Source]; !found {
-			nA := Node{v.Source}
-			nodes[v.Source] = &nA
+		if _, found := nodes[v.To]; !found {
+			nA := Node{v.To}
+			nodes[v.To] = &nA
 			g.AddNode(&nA)
 		}
-		if _, found := nodes[v.Destination]; !found {
-			nA := Node{v.Destination}
-			nodes[v.Destination] = &nA
+		if _, found := nodes[v.From]; !found {
+			nA := Node{v.From}
+			nodes[v.From] = &nA
 			g.AddNode(&nA)
 		}
-		g.AddEdge(nodes[v.Source], nodes[v.Destination], v.Weight)
+		g.AddEdge(nodes[v.To], nodes[v.From], v.ToDistance)
 	}
 	return &g
 }
-
 
 // AddNode adds a node to the graph
 func (g *ItemGraph) AddNode(n *Node) {
@@ -54,4 +53,3 @@ func (g *ItemGraph) AddEdge(n1, n2 *Node, weight int) {
 	g.Edges[*n1] = append(g.Edges[*n1], &ed1)
 	g.Edges[*n2] = append(g.Edges[*n2], &ed2)
 }
-

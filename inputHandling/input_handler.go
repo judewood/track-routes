@@ -32,7 +32,7 @@ func (d *InputStruct) GetInputData() (*[]routes.InputData, error) {
 func createInputData(routeSections *[]models.RouteSection) *[]routes.InputData {
 	var inputData []routes.InputData
 	for _, v := range *(*[]models.RouteSection)(routeSections) {
-		item := routes.InputData{Source: v.From, Destination: v.To, Weight: v.Distance}
+		item := routes.InputData{To: v.From, From: v.To, ToDistance: v.Distance}
 		inputData = append(inputData, item)
 	}
 	return &inputData
