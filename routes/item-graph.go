@@ -22,7 +22,7 @@ func CreateGraph(data InputGraph) *ItemGraph {
 			nodes[v.From] = &nA
 			g.AddNode(&nA)
 		}
-		g.AddEdge(nodes[v.To], nodes[v.From], v.Distance)
+		g.AddEdge(nodes[v.To], nodes[v.From], v.DistanceFrom)
 	}
 	return &g
 }

@@ -16,43 +16,43 @@ func TestApplyFilter(t *testing.T) {
 			From:         "abc  ",
 			To:           "XYz",
 			DistanceFrom: 99,
-			PassengerUse: "Y",
+			DistanceTo: 89,
 		},
 		{ //duplicate of above
 			From:         "ABC",
 			To:           "XYZ",
 			DistanceFrom: 123,
-			PassengerUse: "Y",
+			DistanceTo: 100,
 		},
 		{ // duplicate but with start and end swapped
 			From:         "XYZ",
 			To:           "ABC",
 			DistanceFrom: 123,
-			PassengerUse: "Y",
+			DistanceTo: 123,
 		},
 		{ // duplicate but not a passenger route
 			From:         "XYZ",
 			To:           "ABC",
 			DistanceFrom: 123,
-			PassengerUse: "",
+			DistanceTo: 4,
 		},
 		{
 			From:         "ABC",
 			To:           "XYZ",
 			DistanceFrom: 98,
-			PassengerUse: "Y",
+			DistanceTo: 0,
 		},
 		{
 			From:         "DEF",
 			To:           "XYZ",
 			DistanceFrom: 123,
-			PassengerUse: "Y",
+			DistanceTo: 60,
 		},
 		{ //not a passenger route
 			From:         "ABC",
 			To:           "xYz",
 			DistanceFrom: 66,
-			PassengerUse: "not y",
+			DistanceTo: 60,
 		},
 	}
 
@@ -61,13 +61,13 @@ func TestApplyFilter(t *testing.T) {
 			From:         "ABC",
 			To:           "XYZ",
 			DistanceFrom: 99,
-			PassengerUse: "Y",
+			DistanceTo: 6,
 		},
 		{
 			From:         "DEF",
 			To:           "XYZ",
 			DistanceFrom: 123,
-			PassengerUse: "Y",
+			DistanceTo: 7,
 		},
 	}
 
@@ -87,37 +87,37 @@ func TestGetInputData(t *testing.T) {
 			From:         "A",
 			To:           "B",
 			DistanceFrom: 4,
-			PassengerUse: "Y",
+			DistanceTo: 7,
 		},
 		{
 			From:         "A",
 			To:           "C",
 			DistanceFrom: 2,
-			PassengerUse: "Y",
+			DistanceTo: 3,
 		},
 		{
 			From:         "B",
 			To:           "C",
 			DistanceFrom: 1,
-			PassengerUse: "Y",
+			DistanceTo: 1,
 		},
 	}
 
 	expectedInputData := []routes.InputData{
 		{
-			To:       "A",
-			From:     "B",
-			Distance: 4,
+			To:           "A",
+			From:         "B",
+			DistanceFrom: 4,
 		},
 		{
-			To:       "A",
-			From:     "C",
-			Distance: 2,
+			To:           "A",
+			From:         "C",
+			DistanceFrom: 2,
 		},
 		{
-			To:       "B",
-			From:     "C",
-			Distance: 1,
+			To:           "B",
+			From:         "C",
+			DistanceFrom: 1,
 		},
 	}
 
