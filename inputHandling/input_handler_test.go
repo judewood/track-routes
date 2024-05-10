@@ -13,44 +13,44 @@ import (
 func TestApplyFilter(t *testing.T) {
 	var inputData = []models.RouteSection{
 		{
-			Start:        "abc  ",
-			End:          "XYz",
+			From:         "abc  ",
+			To:           "XYz",
 			Distance:     99,
 			PassengerUse: "Y",
 		},
 		{ //duplicate of above
-			Start:        "ABC",
-			End:          "XYZ",
+			From:         "ABC",
+			To:           "XYZ",
 			Distance:     123,
 			PassengerUse: "Y",
 		},
 		{ // duplicate but with start and end swapped
-			Start:        "XYZ",
-			End:          "ABC",
+			From:         "XYZ",
+			To:           "ABC",
 			Distance:     123,
 			PassengerUse: "Y",
 		},
 		{ // duplicate but not a passenger route
-			Start:        "XYZ",
-			End:          "ABC",
+			From:         "XYZ",
+			To:           "ABC",
 			Distance:     123,
 			PassengerUse: "",
 		},
 		{
-			Start:        "ABC",
-			End:          "XYZ",
+			From:         "ABC",
+			To:           "XYZ",
 			Distance:     98,
 			PassengerUse: "Y",
 		},
 		{
-			Start:        "DEF",
-			End:          "XYZ",
+			From:         "DEF",
+			To:           "XYZ",
 			Distance:     123,
 			PassengerUse: "Y",
 		},
 		{ //not a passenger route
-			Start:        "ABC",
-			End:          "xYz",
+			From:         "ABC",
+			To:           "xYz",
 			Distance:     66,
 			PassengerUse: "not y",
 		},
@@ -58,14 +58,14 @@ func TestApplyFilter(t *testing.T) {
 
 	var expectedOutputData = []models.RouteSection{
 		{
-			Start:        "ABC",
-			End:          "XYZ",
+			From:         "ABC",
+			To:           "XYZ",
 			Distance:     99,
 			PassengerUse: "Y",
 		},
 		{
-			Start:        "DEF",
-			End:          "XYZ",
+			From:         "DEF",
+			To:           "XYZ",
 			Distance:     123,
 			PassengerUse: "Y",
 		},
@@ -84,20 +84,20 @@ func TestApplyFilter(t *testing.T) {
 func TestGetInputData(t *testing.T) {
 	var fileData = []models.RouteSection{
 		{
-			Start:        "A",
-			End:          "B",
+			From:         "A",
+			To:           "B",
 			Distance:     4,
 			PassengerUse: "Y",
 		},
 		{
-			Start:        "A",
-			End:          "C",
+			From:         "A",
+			To:           "C",
 			Distance:     2,
 			PassengerUse: "Y",
 		},
 		{
-			Start:        "B",
-			End:          "C",
+			From:         "B",
+			To:           "C",
 			Distance:     1,
 			PassengerUse: "Y",
 		},

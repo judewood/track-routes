@@ -40,65 +40,65 @@ func (s *OutputStruct) OutputRoutes(inputData *[]routes.InputData, routes *[]mod
 func GetSampleRoutes() *[]models.StartEnd {
 	var outputSample = []models.StartEnd{
 		{
-			Start: "BERKHMD",
-			End:   "TRING",
+			From: "BERKHMD",
+			To:   "TRING",
 		},
 		{
-			Start: "HYWRDSH",
-			End:   "KEYMERJ",
+			From: "HYWRDSH",
+			To:   "KEYMERJ",
 		},
 		{
-			Start: "BERKHMD",
-			End:   "HEMLHMP",
+			From: "BERKHMD",
+			To:   "HEMLHMP",
 		},
 		{
-			Start: "BHAMNWS",
-			End:   "BHAMINT",
+			From: "BHAMNWS",
+			To:   "BHAMINT",
 		},
 		{
-			Start: "BERKHMD",
-			End:   "WATFDJ",
+			From: "BERKHMD",
+			To:   "WATFDJ",
 		},
 		{
-			Start: "EUSTON",
-			End:   "BERKHMD",
+			From: "EUSTON",
+			To:   "BERKHMD",
 		},
 		{
-			Start: "MNCRPIC",
-			End:   "CRDFCEN",
+			From: "MNCRPIC",
+			To:   "CRDFCEN",
 		},
 		{
-			Start: "KNGX",
-			End:   "EDINBUR",
+			From: "KNGX",
+			To:   "EDINBUR",
 		},
 		{
-			Start: "THURSO",
-			End:   "PENZNCE",
+			From: "THURSO",
+			To:   "PENZNCE",
 		},
 		{
-			Start: "PHBR",
-			End:   "RYDP",
+			From: "PHBR",
+			To:   "RYDP",
 		},
 	}
 	return &outputSample
 }
 
 func getResult(route models.StartEnd, inputData *[]routes.InputData, doneChan chan models.RouteDistance) {
-	inputGraph := routes.CreateInputGraph(inputData, route.Start, route.End)
+	inputGraph := routes.CreateInputGraph(inputData, route.From, route.To)
 	routesGraph := routes.CreateGraph(inputGraph)
 
 	node1 := routes.Node{
-		Value: route.Start,
+		Value: route.From,
 	}
 	node2 := routes.Node{
-		Value: route.End,
+		Value: route.To,
 	}
 	nodesAreConnected := routes.NodesAreConnected(&node1, &node2, routesGraph, len(*inputData))
 	if !nodesAreConnected {
 		fmt.Printf("TIPLOCs %s and %s are not connected. Setting distance to -1", node1.Value, node2.Value)
 		unconnected := models.RouteDistance{
-			Start:     route.Start,
-			End:       route.End,
+			From:      route.From,
+			To:        route.To,
 			Distance:  -1,
 			NumTracks: -1,
 		}
@@ -108,11 +108,11 @@ func getResult(route models.StartEnd, inputData *[]routes.InputData, doneChan ch
 	numTracks, distance := routes.GetShortestPath(&node1, &node2, routesGraph)
 
 	r := models.RouteDistance{
-		Start:     route.Start,
-		End:       route.End,
+		From:      route.From,
+		To:        route.To,
 		Distance:  distance,
 		NumTracks: numTracks,
 	}
-	fmt.Printf("Route for %s to %s is %v with num tracks %v", route.Start, route.End, r.Distance, r.NumTracks)
+	fmt.Printf("Route for %s to %s is %v with num tracks %v", route.From, route.To, r.Distance, r.NumTracks)
 	doneChan <- r
 }
