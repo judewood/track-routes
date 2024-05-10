@@ -32,15 +32,15 @@ func TestOutputRoutes(t *testing.T) {
 
 	sampleRoutes := []models.StartEnd{
 		{
-			Start: "A",
-			End:   "B",
+			From: "A",
+			To:   "B",
 		},
 		{
-			Start: "C",
-			End:   "B",
+			From: "C",
+			To:   "B",
 		}, {
-			Start: "A",
-			End:   "C",
+			From: "A",
+			To:   "C",
 		},
 	}
 
@@ -73,8 +73,8 @@ func TestUnconnectedStartAndEnd(t *testing.T) {
 
 	sampleRoutes := []models.StartEnd{
 		{
-			Start: "A",
-			End:   "X",
+			From: "A",
+			To:   "X",
 		},
 	}
 	mockFileStore := new(mocks.FileStore)
