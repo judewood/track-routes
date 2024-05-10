@@ -1,7 +1,6 @@
 package inputHandling
 
 import (
-	"fmt"
 	"strings"
 
 	"github.com/judewood/routeDistances/domain"
@@ -32,7 +31,7 @@ func (d *InputStruct) GetInputData() (*[]routes.InputData, error) {
 func createInputData(routeSections *[]models.RouteSection) *[]routes.InputData {
 	var inputData []routes.InputData
 	for _, v := range *(*[]models.RouteSection)(routeSections) {
-		item := routes.InputData{From: v.From, To: v.To, Distance: v.DistanceFrom}
+		item := routes.InputData{From: v.From, To: v.To, DistanceFrom: v.DistanceFrom, DistanceTo: v.DistanceTo}
 		inputData = append(inputData, item)
 	}
 	return &inputData
@@ -46,10 +45,10 @@ func ApplyFilter(input *[]models.RouteSection) *[]models.RouteSection {
 		v.To = clean(v.To)
 		skip := false
 		for _, u := range distinct {
-			if (v.From == u.From && v.To == u.To)  {
-				//add in the distance for the revers direction - may not be the same as the forward one 
+			if v.From == u.From && v.To == u.To {
+				//add in the distance for the revers direction - may not be the same as the forward one
 				v.DistanceTo = u.DistanceFrom
-				skip = true  
+				skip = true
 				break
 			}
 		}
