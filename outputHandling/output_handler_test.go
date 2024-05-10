@@ -14,19 +14,19 @@ func TestOutputRoutes(t *testing.T) {
 
 	inputData := []routes.InputData{
 		{
-			To:         "A",
-			From:       "B",
-			ToDistance: 4,
+			To:       "A",
+			From:     "B",
+			Distance: 4,
 		},
 		{
-			To:         "A",
-			From:       "C",
-			ToDistance: 2,
+			To:       "A",
+			From:     "C",
+			Distance: 2,
 		},
 		{
-			To:         "B",
-			From:       "C",
-			ToDistance: 1,
+			To:       "B",
+			From:     "C",
+			Distance: 1,
 		},
 	}
 
@@ -60,14 +60,14 @@ func TestOutputRoutes(t *testing.T) {
 func TestUnconnectedStartAndEnd(t *testing.T) {
 	inputData := []routes.InputData{
 		{
-			To:         "A",
-			From:       "B",
-			ToDistance: 4,
+			To:       "A",
+			From:     "B",
+			Distance: 4,
 		},
 		{
-			To:         "X",
-			From:       "Y",
-			ToDistance: 2,
+			To:       "X",
+			From:     "Y",
+			Distance: 2,
 		},
 	}
 
