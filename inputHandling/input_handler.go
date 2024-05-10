@@ -32,7 +32,7 @@ func (d *InputStruct) GetInputData() (*[]routes.InputData, error) {
 func createInputData(routeSections *[]models.RouteSection) *[]routes.InputData {
 	var inputData []routes.InputData
 	for _, v := range *(*[]models.RouteSection)(routeSections) {
-		item := routes.InputData{To: v.From, From: v.To, ToDistance: v.Distance}
+		item := routes.InputData{From: v.From, To: v.To, ToDistance: v.Distance}
 		inputData = append(inputData, item)
 	}
 	return &inputData
@@ -46,19 +46,15 @@ func ApplyFilter(input *[]models.RouteSection) *[]models.RouteSection {
 		v.To = clean(v.To)
 		v.PassengerUse = clean(v.PassengerUse)
 		skip := false
-		if v.PassengerUse != "Y" {
-			skip = true
-		} else {
-			for _, u := range distinct {
-				if (v.From == u.From && v.To == u.To) || (v.From == u.To && v.To == u.From) {
-					if v.Distance != u.Distance {
-						fmt.Printf("\nMultiple distances for %s to %s. (%v, %v) ", v.From, v.To, v.Distance, u.Distance)
-						v.Distance = minPositiveValue(v.Distance, u.Distance)
-						fmt.Printf("Using %v", v.Distance)
-					}
-					skip = true
-					break
+		for _, u := range distinct {
+			if (v.From == u.From && v.To == u.To) || (v.From == u.To && v.To == u.From) {
+				if v.Distance != u.Distance {
+					fmt.Printf("\nMultiple distances for %s to %s. (%v, %v) ", v.From, v.To, v.Distance, u.Distance)
+					v.Distance = minPositiveValue(v.Distance, u.Distance)
+					fmt.Printf("Using %v", v.Distance)
 				}
+				skip = true
+				break
 			}
 		}
 		if !skip {
