@@ -111,7 +111,7 @@ type Vertex struct {
 type PriorityQueue []*Vertex
 
 type InputData struct {
-	Source      string `json:"source"`
-	Destination string `json:"destination"`
-	Weight      int    `json:"weight"`
+	To         string `json:"source"`
+	From       string `json:"destination"`
+	ToDistance int    `json:"weight"`
 }
