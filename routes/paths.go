@@ -61,12 +61,12 @@ func GetShortestPath(startNode *Node, endNode *Node, g *ItemGraph) (int, int) {
 
 		for _, val := range near {
 			if !visited[val.Node.Value] {
-				if dist[v.Node.Value]+val.Weight < dist[val.Node.Value] {
+				if dist[v.Node.Value]+val.DistanceFrom < dist[val.Node.Value] {
 					store := Vertex{
 						Node:     val.Node,
-						Distance: dist[v.Node.Value] + val.Weight,
+						Distance: dist[v.Node.Value] + val.DistanceFrom,
 					}
-					dist[val.Node.Value] = dist[v.Node.Value] + val.Weight
+					dist[val.Node.Value] = dist[v.Node.Value] + val.DistanceFrom
 					prev[val.Node.Value] = v.Node.Value
 					pq.Enqueue(store)
 				}
@@ -99,8 +99,9 @@ type Node struct {
 }
 
 type Edge struct {
-	Node   *Node
-	Weight int
+	Node         *Node
+	DistanceFrom int
+	DistanceTo int
 }
 
 type Vertex struct {
