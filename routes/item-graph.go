@@ -22,7 +22,7 @@ func CreateGraph(data InputGraph) *ItemGraph {
 			nodes[v.From] = &nA
 			g.AddNode(&nA)
 		}
-		g.AddEdge(nodes[v.To], nodes[v.From], v.DistanceFrom)
+		g.AddEdge(nodes[v.To], nodes[v.From], v.DistanceFrom, v.DistanceTo)
 	}
 	return &g
 }
@@ -35,20 +35,22 @@ func (g *ItemGraph) AddNode(n *Node) {
 }
 
 // AddEdge adds an edge to the graph
-func (g *ItemGraph) AddEdge(n1, n2 *Node, weight int) {
+func (g *ItemGraph) AddEdge(n1, n2 *Node, distanceFrom, distanceTo int) {
 	g.Lock.Lock()
 	defer g.Lock.Unlock()
 	if g.Edges == nil {
 		g.Edges = make(map[Node][]*Edge)
 	}
 	ed1 := Edge{
-		Node:   n2,
-		Weight: weight,
+		Node:         n2,
+		DistanceFrom: distanceFrom,
+		DistanceTo:  distanceTo,
 	}
 
 	ed2 := Edge{
-		Node:   n1,
-		Weight: weight,
+		Node:         n1,
+		DistanceFrom: distanceFrom,
+		DistanceTo:  distanceTo,
 	}
 	g.Edges[*n1] = append(g.Edges[*n1], &ed1)
 	g.Edges[*n2] = append(g.Edges[*n2], &ed2)
