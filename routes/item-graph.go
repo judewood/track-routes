@@ -42,16 +42,18 @@ func (g *ItemGraph) AddEdge(n1, n2 *Node, distanceFrom, distanceTo int) {
 		g.Edges = make(map[Node][]*Edge)
 	}
 	ed1 := Edge{
-		Node:         n2,
+		FromNode:     n2,
+		Node2: n1,
 		DistanceFrom: distanceFrom,
-		DistanceTo:  distanceTo,
+		DistanceTo:   distanceTo,
 	}
 
-	ed2 := Edge{
-		Node:         n1,
-		DistanceFrom: distanceFrom,
-		DistanceTo:  distanceTo,
-	}
+	// ed2 := Edge{
+	// 	FromNode:     n1,
+	// 	Node2: n2,
+	// 	DistanceFrom: distanceFrom,
+	// 	DistanceTo:   distanceTo,
+	// }
 	g.Edges[*n1] = append(g.Edges[*n1], &ed1)
-	g.Edges[*n2] = append(g.Edges[*n2], &ed2)
+	//g.Edges[*n2] = append(g.Edges[*n2], &ed2)
 }
