@@ -23,7 +23,8 @@ func (d *InputStruct) GetInputData() (*[]routes.InputData, error) {
 	if err != nil {
 		return &[]routes.InputData{}, err
 	}
-	routeSections := ApplyFilter(input)
+	noDuplicates := RemoveDuplicates(input)
+	routeSections := ApplyReverseDistance(noDuplicates)
 	inputData := createInputData(routeSections)
 	return inputData, nil
 }
@@ -37,7 +38,7 @@ func createInputData(routeSections *[]models.RouteSection) *[]routes.InputData {
 	return &inputData
 }
 
-func ApplyFilter(input *[]models.RouteSection) *[]models.RouteSection {
+func RemoveDuplicates(input *[]models.RouteSection) *[]models.RouteSection {
 	var distinct []models.RouteSection
 
 	for _, v := range *input {
@@ -46,8 +47,9 @@ func ApplyFilter(input *[]models.RouteSection) *[]models.RouteSection {
 		skip := false
 		for _, u := range distinct {
 			if v.From == u.From && v.To == u.To {
-				//add in the distance for the revers direction - may not be the same as the forward one
-				v.DistanceTo = u.DistanceFrom
+				// if v.DistanceFrom != u.DistanceFrom {
+				// 	fmt.Println("duplicate route section found with different distance", v, u)
+				// }
 				skip = true
 				break
 			}
@@ -59,14 +61,23 @@ func ApplyFilter(input *[]models.RouteSection) *[]models.RouteSection {
 	return &distinct
 }
 
-func minPositiveValue(a, b int) int {
-	if a <= 0 {
-		return b
+func ApplyReverseDistance(input *[]models.RouteSection) *[]models.RouteSection {
+	var distinct []models.RouteSection
+
+	for _, v := range *input {
+		v.From = clean(v.From)
+		v.To = clean(v.To)
+		v.DistanceTo = -1
+		for _, u := range *input {
+			if v.From == u.To && v.To == u.From {
+				//add in the distance for the revers direction - may not be the same as the forward one
+				v.DistanceTo = u.DistanceFrom
+				break
+			}
+		}
+		distinct = append(distinct, v)
 	}
-	if a < b || b == 0 {
-		return a
-	}
-	return b
+	return &distinct
 }
 
 func clean(input string) string {
