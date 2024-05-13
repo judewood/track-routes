@@ -54,10 +54,13 @@ func GetShortestPath(startNode *Node, endNode *Node, g *ItemGraph) (int, int) {
 	pq.Enqueue(start)
 	for !pq.IsEmpty() {
 		v := pq.Dequeue()
-		if v.Node.Value == "BERKHMD" || v.Node.Value == "BONENDJ" || v.Node.Value == "BORN421" || v.Node.Value == "HEMLHMP" {
-			fmt.Println("dequeueing", *v)
-			fmt.Println("queue size", pq.Size())
-		}
+		//if v.Node.Value == "BERKHMD" || v.Node.Value == "BONENDJ" || v.Node.Value == "BORN421" || v.Node.Value == "HEMLHMP" {
+		//fmt.Println("dequeued", v.Node.Value, "to", v.Node2.Value, "from", v.DistanceFrom, "to", v.DistanceTo , "queue size", pq.Size())
+		// if v.Node.Value != startNode.Value {
+		// 	fmt.Println("dequeued", v.Node.Value, v.Node2.Value, "from", v.DistanceFrom, "to", v.DistanceTo, "queue size", pq.Size())
+		// } 
+
+		//}
 
 		if visited[v.Node.Value] {
 			continue
@@ -71,20 +74,26 @@ func GetShortestPath(startNode *Node, endNode *Node, g *ItemGraph) (int, int) {
 
 				// }
 				if dist[v.Node.Value]+val.DistanceFrom < dist[val.FromNode.Value] {
-					if val.FromNode.Value == "BERKHMD" || val.FromNode.Value == "BONENDJ" || val.FromNode.Value == "BORN421" || val.FromNode.Value == "HEMLHMP" {
-						fmt.Println("queueing", val.FromNode.Value, ", ", val.Node2.Value,  "DistanceFrom", val.DistanceFrom, "DistanceTo", val.DistanceTo)
-					}
+					// if val.FromNode.Value == "BERKHMD" || val.FromNode.Value == "BONENDJ" || val.FromNode.Value == "BORN421" || val.FromNode.Value == "HEMLHMP" {
+					// 	fmt.Println("queueing", val.FromNode.Value, ", ", val.Node2.Value,  "DistanceFrom", val.DistanceFrom, "DistanceTo", val.DistanceTo)
+					// }
+							if v.Node.Value != startNode.Value {
+			fmt.Println("queueing", v.Node.Value, v.Node2.Value, "from", v.DistanceFrom, "to", v.DistanceTo, "queue size", pq.Size())
+		} 
 
 					store := Vertex{
-						Node:     val.FromNode,
-						Distance: dist[v.Node.Value] + val.DistanceFrom,
+						Node:         val.FromNode,
+						Node2:        val.Node2,
+						Distance:     dist[v.Node.Value] + val.DistanceFrom,
+						DistanceFrom: val.DistanceFrom,
+						DistanceTo:   val.DistanceTo,
 					}
 					dist[val.FromNode.Value] = dist[v.Node.Value] + val.DistanceFrom
 					prev[val.FromNode.Value] = v.Node.Value
-					if val.FromNode.Value == "BERKHMD" || val.FromNode.Value == "BONENDJ" || val.FromNode.Value == "BORN421" || val.FromNode.Value == "HEMLHMP" {
-						fmt.Println("queueing", val.FromNode.Value, ", ", val.Node2.Value, "DistanceFrom", val.DistanceFrom, "DistanceTo", val.DistanceTo)
-						fmt.Println("store", store.Node.Value, store.Distance)
-					}
+					// if val.FromNode.Value == "BERKHMD" || val.FromNode.Value == "BONENDJ" || val.FromNode.Value == "BORN421" || val.FromNode.Value == "HEMLHMP" {
+					// 	fmt.Println("queueing", val.FromNode.Value, ", ", val.Node2.Value, "DistanceFrom", val.DistanceFrom, "DistanceTo", val.DistanceTo)
+					// 	fmt.Println("store", store.Node.Value, store.Distance)
+					// }
 					pq.Enqueue(store)
 				}
 			}
@@ -98,7 +107,7 @@ func GetShortestPath(startNode *Node, endNode *Node, g *ItemGraph) (int, int) {
 	for pathVal != startNode.Value {
 		finalArr = append(finalArr, pathVal)
 		pathVal = prev[pathVal]
-		fmt.Println("pathVal", pathVal)
+		//fmt.Println("pathVal", pathVal)
 	}
 	finalArr = append(finalArr, pathVal)
 	//fmt.Println("finalArr", finalArr)
@@ -106,9 +115,9 @@ func GetShortestPath(startNode *Node, endNode *Node, g *ItemGraph) (int, int) {
 		finalArr[i], finalArr[j] = finalArr[j], finalArr[i]
 	}
 	//print the route for debugging
-	for _, f := range finalArr {
-		fmt.Println(f)
-	}
+	// for _, f := range finalArr {
+	// 	fmt.Println(f)
+	// }
 
 	numTracks := len(finalArr) - 1
 	return numTracks, dist[endNode.Value]
@@ -127,8 +136,11 @@ type Edge struct {
 }
 
 type Vertex struct {
-	Node     *Node
-	Distance int
+	Node         *Node
+	Node2        *Node
+	Distance     int
+	DistanceFrom int
+	DistanceTo   int
 }
 
 type PriorityQueue []*Vertex

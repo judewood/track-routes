@@ -47,10 +47,10 @@ func GetSampleRoutes() *[]models.StartEnd {
 		// 	From: "HYWRDSH",
 		// 	To:   "KEYMERJ",
 		// },
-		{
-			From: "BERKHMD",
-			To:   "HEMLHMP",
-		},
+		// {
+		// 	From: "BERKHMD",
+		// 	To:   "HEMLHMP",
+		// },
 		// {
 		// 	From: "BHAMNWS",
 		// 	To:   "BHAMINT",
@@ -71,10 +71,10 @@ func GetSampleRoutes() *[]models.StartEnd {
 		// 	From: "KNGX",
 		// 	To:   "EDINBUR",
 		// },
-		// {
-		// 	From: "THURSO",
-		// 	To:   "PENZNCE",
-		// },
+		{
+			From: "THURSO",
+			To:   "PENZNCE",
+		},
 		// {
 		// 	From: "PHBR",
 		// 	To:   "RYDP",
