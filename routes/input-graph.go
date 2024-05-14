@@ -1,17 +1,19 @@
 package routes
 
+import "github.com/judewood/routeDistances/models"
+
 type InputGraph struct {
-	InputData []InputData `json:"graph"`
-	From      string      `json:"from"`
-	To        string      `json:"to"`
+	RouteSections []models.RouteSection
+	From          string
+	To            string
 }
 
-// Create an array of adjacent node pairs and the distance or weight between them
-func CreateInputGraph(inputData *[]InputData, from, to string) InputGraph {
+// Create an array of adjacent TIPLOC pairs and the distance between them in the direction of travel
+func CreateInputGraph(routeSections *[]models.RouteSection, from, to string) InputGraph {
 	inputGraph := InputGraph{
-		InputData: *inputData,
-		From:      from,
-		To:        to,
+		RouteSections: *routeSections,
+		From:          from,
+		To:            to,
 	}
 	return inputGraph
 }

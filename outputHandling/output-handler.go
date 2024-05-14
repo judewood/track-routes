@@ -18,7 +18,7 @@ func New(fileHandler domain.FileStore) *OutputStruct {
 	}
 }
 
-func (s *OutputStruct) OutputRoutes(inputData *[]routes.InputData, routes *[]models.StartEnd) (int, error) {
+func (s *OutputStruct) OutputRoutes(inputData *[]models.RouteSection, routes *[]models.StartEnd) (int, error) {
 	doneChannels := make([]chan models.RouteDistance, len(*routes))
 	for i := range doneChannels {
 		doneChannels[i] = make(chan models.RouteDistance)
@@ -39,63 +39,56 @@ func (s *OutputStruct) OutputRoutes(inputData *[]routes.InputData, routes *[]mod
 
 func GetSampleRoutes() *[]models.StartEnd {
 	var outputSample = []models.StartEnd{
-		// {
-		// 	From: "BERKHMD",
-		// 	To:   "TRING",
-		// },
-		// {
-		// 	From: "HYWRDSH",
-		// 	To:   "KEYMERJ",
-		// },
-		// {
-		// 	From: "BERKHMD",
-		// 	To:   "HEMLHMP",
-		// },
-		// {
-		// 	From: "BHAMNWS",
-		// 	To:   "BHAMINT",
-		// },
-		// {
-		// 	From: "BERKHMD",
-		// 	To:   "WATFDJ",
-		// },
-		// {
-		// 	From: "EUSTON",
-		// 	To:   "BERKHMD",
-		// },
+		{
+			From: "BERKHMD",
+			To:   "TRING",
+		},
+		{
+			From: "HYWRDSH",
+			To:   "KEYMERJ",
+		},
+		{
+			From: "BERKHMD",
+			To:   "HEMLHMP",
+		},
+		{
+			From: "BHAMNWS",
+			To:   "BHAMINT",
+		},
+		{
+			From: "BERKHMD",
+			To:   "WATFDJ",
+		},
+		{
+			From: "EUSTON",
+			To:   "BERKHMD",
+		},
 		{
 			From: "MNCRPIC",
 			To:   "CRDFCEN",
 		},
-		// {
-		// 	From: "KNGX",
-		// 	To:   "EDINBUR",
-		// },
-		// {
-		// 	From: "THURSO",
-		// 	To:   "PENZNCE",
-		// },
-		// {
-		// 	From: "PHBR",
-		// 	To:   "RYDP",
-		// },
+		{
+			From: "KNGX",
+			To:   "EDINBUR",
+		},
+		{
+			From: "THURSO",
+			To:   "PENZNCE",
+		},
+		{
+			From: "PHBR",
+			To:   "RYDP",
+		},
 	}
 	return &outputSample
 }
 
-func getResult(route models.StartEnd, inputData *[]routes.InputData, doneChan chan models.RouteDistance) {
+func getResult(route models.StartEnd, inputData *[]models.RouteSection, doneChan chan models.RouteDistance) {
 	inputGraph := routes.CreateInputGraph(inputData, route.From, route.To)
 	routesGraph := routes.CreateGraph(inputGraph)
-
-	node1 := routes.Node{
-		Value: route.From,
-	}
-	node2 := routes.Node{
-		Value: route.To,
-	}
-	nodesAreConnected := routes.NodesAreConnected(&node1, &node2, routesGraph, len(*inputData))
-	if !nodesAreConnected {
-		fmt.Printf("TIPLOCs %s and %s are not connected. Setting distance to -1", node1.Value, node2.Value)
+	routeIsConnected := routes.TIPLOCsAreConnected(route.From, route.To, routesGraph, len(*inputData))
+	if !routeIsConnected {
+		fmt.Printf("TIPLOCs %s and %s are not connected. Setting distance to -1", route.From, route.To)
 		unconnected := models.RouteDistance{
 			From:      route.From,
 			To:        route.To,
@@ -105,7 +98,7 @@ func getResult(route models.StartEnd, inputData *[]routes.InputData, doneChan ch
 		doneChan <- unconnected
 		return
 	}
-	numTracks, distance := routes.GetShortestPath(&node1, &node2, routesGraph)
+	numTracks, distance := routes.GetShortestRoute(route.From, route.To, routesGraph)
 
 	r := models.RouteDistance{
 		From:      route.From,

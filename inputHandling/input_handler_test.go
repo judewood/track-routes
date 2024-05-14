@@ -6,44 +6,43 @@ import (
 
 	"github.com/judewood/routeDistances/mocks"
 	"github.com/judewood/routeDistances/models"
-	"github.com/judewood/routeDistances/routes"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestGetInputData(t *testing.T) {
 	var fileData = []models.RouteSection{
 		{
-			From:         "A",
-			To:           "B",
-			DistanceFrom: 4,
+			From:     "A",
+			To:       "B",
+			Distance: 4,
 		},
 		{
-			From:         "C",
-			To:           "B",
-			DistanceFrom: 1,
+			From:     "C",
+			To:       "B",
+			Distance: 1,
 		},
 		{
-			From:         "B",
-			To:           "C",
-			DistanceFrom: 2,
+			From:     "B",
+			To:       "C",
+			Distance: 2,
 		},
 	}
 
-	expectedInputData := []routes.InputData{
+	expectedInputData := []models.RouteSection{
 		{
-			From:         "A",
-			To:           "B",
-			DistanceFrom: 4,
+			From:     "A",
+			To:       "B",
+			Distance: 4,
 		},
 		{
-			From:         "C",
-			To:           "B",
-			DistanceFrom: 1,
+			From:     "C",
+			To:       "B",
+			Distance: 1,
 		},
 		{
-			From:         "B",
-			To:           "C",
-			DistanceFrom: 2,
+			From:     "B",
+			To:       "C",
+			Distance: 2,
 		},
 	}
 

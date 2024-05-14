@@ -1,10 +1,11 @@
 package models
 
 type RouteSection struct {
-	From         string `csv:"FROM_TIPLOC"` // .csv column headers
-	To           string `csv:"TO_TIPLOC"`
-	DistanceFrom int    `csv:"DISTANCE"`
-	LineCode     string `csv:"LINE_CODE"`
+	From               string `csv:"FROM_TIPLOC"` // .csv column headers
+	To                 string `csv:"TO_TIPLOC"`
+	CumulativeDistance int
+	Distance           int    `csv:"DISTANCE"`
+	LineCode           string `csv:"LINE_CODE"`
 }
 
 type StartEnd struct {
@@ -12,6 +13,7 @@ type StartEnd struct {
 	To   string
 }
 
+// RouteDistance is the structure for the output CSV file
 type RouteDistance struct {
 	From      string `csv:"FROM_TIPLOC"` // .csv column headers
 	To        string `csv:"TO_TIPLOC"`

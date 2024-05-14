@@ -1,29 +1,33 @@
 package routes
 
-import "sync"
+import (
+	"sync"
 
-type NodeQueue struct {
-	Items []Vertex
+	"github.com/judewood/routeDistances/models"
+)
+
+type Queue struct {
+	Items []models.RouteSection
 	Lock  sync.RWMutex
 }
 
-// Enqueue adds an Node to the end of the queue
-func (s *NodeQueue) Enqueue(t Vertex) {
+// Enqueue adds an Item to the end of the queue
+func (s *Queue) Enqueue(item models.RouteSection) {
 	s.Lock.Lock()
 	defer s.Lock.Unlock()
 	if len(s.Items) == 0 {
-		s.Items = append(s.Items, t)
+		s.Items = append(s.Items, item)
 		return
 	}
 	var insertFlag bool
 	for k, v := range s.Items {
-		if t.Distance < v.Distance {
+		if item.CumulativeDistance < v.CumulativeDistance {
 			if k > 0 {
 				s.Items = append(s.Items[:k+1], s.Items[k:]...)
-				s.Items[k] = t
+				s.Items[k] = item
 				insertFlag = true
 			} else {
-				s.Items = append([]Vertex{t}, s.Items...)
+				s.Items = append([]models.RouteSection{item}, s.Items...)
 				insertFlag = true
 			}
 		}
@@ -32,12 +36,12 @@ func (s *NodeQueue) Enqueue(t Vertex) {
 		}
 	}
 	if !insertFlag {
-		s.Items = append(s.Items, t)
+		s.Items = append(s.Items, item)
 	}
 }
 
-// Dequeue removes an Node from the start of the queue
-func (s *NodeQueue) Dequeue() *Vertex {
+// Dequeue removes an Item from the start of the queue
+func (s *Queue) Dequeue() *models.RouteSection {
 	s.Lock.Lock()
 	defer s.Lock.Unlock()
 	item := s.Items[0]
@@ -46,22 +50,22 @@ func (s *NodeQueue) Dequeue() *Vertex {
 }
 
 // NewQ Creates New Queue
-func (s *NodeQueue) NewQ() *NodeQueue {
+func (s *Queue) NewQ() *Queue {
 	s.Lock.Lock()
 	defer s.Lock.Unlock()
-	s.Items = []Vertex{}
+	s.Items = []models.RouteSection{}
 	return s
 }
 
 // IsEmpty returns true if the queue is empty
-func (s *NodeQueue) IsEmpty() bool {
+func (s *Queue) IsEmpty() bool {
 	s.Lock.RLock()
 	defer s.Lock.RUnlock()
 	return len(s.Items) == 0
 }
 
-// Size returns the number of Nodes in the queue
-func (s *NodeQueue) Size() int {
+// Size returns the number of items in the queue
+func (s *Queue) Size() int {
 	s.Lock.RLock()
 	defer s.Lock.RUnlock()
 	return len(s.Items)
