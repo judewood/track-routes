@@ -14,6 +14,7 @@ func NodesAreConnected(startNode *Node, endNode *Node, g *ItemGraph, routeSectio
 	start := Vertex{
 		Node:     startNode,
 		Distance: 0,
+		LineCode: "",
 	}
 	pq.Enqueue(start)
 	for !pq.IsEmpty() {
@@ -31,6 +32,7 @@ func NodesAreConnected(startNode *Node, endNode *Node, g *ItemGraph, routeSectio
 				vertex := Vertex{
 					Node:     val.FromNode,
 					Distance: 0,
+					LineCode: val.LineCode,
 				}
 				pq.Enqueue(vertex) //add not visited node to the queue
 			}
@@ -50,6 +52,7 @@ func GetShortestPath(startNode *Node, endNode *Node, g *ItemGraph) (int, int) {
 	start := Vertex{
 		Node:     startNode,
 		Distance: 0,
+		LineCode: "",
 	}
 	for _, nval := range g.Nodes {
 		dist[nval.Value] = math.MaxInt64
@@ -67,43 +70,46 @@ func GetShortestPath(startNode *Node, endNode *Node, g *ItemGraph) (int, int) {
 			if !visited[val.FromNode.Value] {
 				if dist[v.Node.Value]+val.DistanceFrom < dist[val.FromNode.Value] {
 					if v.Node.Value != startNode.Value {
-						debugOutput := fmt.Sprintf("queueing %s from %s. From: %v To: %v. Queue size: %v", v.Node.Value, v.Node2.Value, v.DistanceFrom, v.DistanceTo, pq.Size())
+						debugOutput := fmt.Sprintf("queueing %s from %s. From: %v, line code %s. Queue size: %v", v.Node.Value, v.Node2.Value, v.DistanceFrom, v.LineCode, pq.Size())
 						//fmt.Println(debugOutput)
 						sections = append(sections, debugOutput)
 					}
 
 					store := Vertex{
 						Node:         val.FromNode,
-						Node2:        val.Node2,
+						Node2:        val.ToNode,
 						Distance:     dist[v.Node.Value] + val.DistanceFrom,
 						DistanceFrom: val.DistanceFrom,
-						DistanceTo:   val.DistanceTo,
+						LineCode:     val.LineCode,
 					}
 					dist[val.FromNode.Value] = dist[v.Node.Value] + val.DistanceFrom
 					prev[val.FromNode.Value] = v.Node.Value
 					pq.Enqueue(store)
-				} else{
+				} else {
 
 				}
 			}
 		}
 	}
-	pathVal := prev[endNode.Value]
+	//fmt.Println("prevs", prev)
+	pathVal := prev[endNode.Value] //start at the end
 	var finalArr []string
 	finalArr = append(finalArr, endNode.Value)
 	for pathVal != startNode.Value {
+		//step back though the previous KV pairs of track sections in the prev array
+		//and append them
 		finalArr = append(finalArr, pathVal)
 		pathVal = prev[pathVal]
 	}
-	finalArr = append(finalArr, pathVal)
+	finalArr = append(finalArr, pathVal) //this will be the start node
+	//reverse the array so it is ordered start to end
 	for i, j := 0, len(finalArr)-1; i < j; i, j = i+1, j-1 {
 		finalArr[i], finalArr[j] = finalArr[j], finalArr[i]
 	}
 	fileStore.WriteDebug("finalArray.txt", &finalArr)
 	fileStore.WriteDebug("debugOutput.txt", &sections)
-	numTracks := len(finalArr) - 1
-	return numTracks, dist[endNode.Value]
-
+	numTrackSections := len(finalArr) - 1 //one less than the number of nodes
+	return numTrackSections, dist[endNode.Value]
 }
 
 type Node struct {
@@ -112,9 +118,9 @@ type Node struct {
 
 type Edge struct {
 	FromNode     *Node
-	Node2        *Node
+	ToNode       *Node
 	DistanceFrom int
-	DistanceTo   int
+	LineCode     string
 }
 
 type Vertex struct {
@@ -122,7 +128,7 @@ type Vertex struct {
 	Node2        *Node
 	Distance     int
 	DistanceFrom int
-	DistanceTo   int
+	LineCode     string
 }
 
 type PriorityQueue []*Vertex
@@ -131,5 +137,5 @@ type InputData struct {
 	To           string
 	From         string
 	DistanceFrom int
-	DistanceTo   int
+	LineCode     string
 }

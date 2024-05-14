@@ -26,15 +26,14 @@ func (d *InputStruct) GetInputData() (*[]routes.InputData, error) {
 		return &[]routes.InputData{}, err
 	}
 	noDuplicates := RemoveDuplicates(input)
-	routeSections := ApplyReverseDistance(noDuplicates)
-	inputData := createInputData(routeSections)
+	inputData := createInputData(noDuplicates)
 	return inputData, nil
 }
 
 func createInputData(routeSections *[]models.RouteSection) *[]routes.InputData {
 	var inputData []routes.InputData
 	for _, v := range *(*[]models.RouteSection)(routeSections) {
-		item := routes.InputData{From: v.From, To: v.To, DistanceFrom: v.DistanceFrom, DistanceTo: v.DistanceTo}
+		item := routes.InputData{From: v.From, To: v.To, DistanceFrom: v.DistanceFrom}
 		inputData = append(inputData, item)
 	}
 	return &inputData
@@ -51,7 +50,7 @@ func RemoveDuplicates(input *[]models.RouteSection) *[]models.RouteSection {
 		for _, u := range distinct {
 			if v.From == u.From && v.To == u.To {
 				if v.DistanceFrom != u.DistanceFrom {
-					duplicate := fmt.Sprintf("%s to %s duplicate found. Distances are %v and %v", v.From, v.To, v.DistanceFrom, u.DistanceFrom)
+					duplicate := fmt.Sprintf("%s to %s duplicate found. 1st Distance: %v, Line Code %s . 2nd Distance: %v, Line Code %s", v.From, v.To, v.DistanceFrom, v.LineCode, u.DistanceFrom, u.LineCode)
 					duplicates = append(duplicates, duplicate)
 					//use the shortest
 					v.DistanceFrom = min(v.DistanceFrom, u.DistanceFrom)
@@ -66,25 +65,6 @@ func RemoveDuplicates(input *[]models.RouteSection) *[]models.RouteSection {
 	}
 	if len(duplicates) > 0 {
 		fileStore.WriteDebug("duplicates.txt", &duplicates)
-	}
-	return &distinct
-}
-
-func ApplyReverseDistance(input *[]models.RouteSection) *[]models.RouteSection {
-	var distinct []models.RouteSection
-
-	for _, v := range *input {
-		v.From = clean(v.From)
-		v.To = clean(v.To)
-		v.DistanceTo = -1
-		for _, u := range *input {
-			if v.From == u.To && v.To == u.From {
-				//add in the distance for the revers direction - may not be the same as the forward one
-				v.DistanceTo = u.DistanceFrom
-				break
-			}
-		}
-		distinct = append(distinct, v)
 	}
 	return &distinct
 }

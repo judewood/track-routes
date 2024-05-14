@@ -1,154 +1,154 @@
-ALDGEST to WCHAPEL duplicate found. Distances are 620 and 560
-CFLDJN to MNCRDGT duplicate found. Distances are 293 and 202
-CNTBW to CNTBWGL duplicate found. Distances are 583 and 543
-CREWBHJ to CREWBHN duplicate found. Distances are 875 and 1750
-CREWBHJ to CREWBHN duplicate found. Distances are 875 and 1750
-DONCDDF to DONCDDG duplicate found. Distances are 50 and 0
-DONCDDG to DONCDDY duplicate found. Distances are 50 and 0
-DONCDDY to DONCRMT duplicate found. Distances are 38 and 100
-DRIGG to DRIGBNF duplicate found. Distances are 7 and 14
-EBOLDUL to EBOLDON duplicate found. Distances are 200 and 0
-ELCT to KNSGHST duplicate found. Distances are 540 and 490
-ELCT to SKENSIN duplicate found. Distances are 480 and 1000
-HRLWMRR to HRLWMLY duplicate found. Distances are 3 and 20
-HULLDKG to HULLBIG duplicate found. Distances are 444 and 1269
-IMNGCPG to IMNGREF duplicate found. Distances are 150 and 120
-IMNGFHH to IMNGCLA duplicate found. Distances are 20 and 10
-IMNGHWJ to IMNGCT2 duplicate found. Distances are 523 and 0
-IMNGLCR to IMNGLGB duplicate found. Distances are 10 and 0
-IMNGLOR to IMNGLGB duplicate found. Distances are 171 and 1
-KNSGHST to ELCT duplicate found. Distances are 240 and 150
-LILBDGE to ELCT duplicate found. Distances are 910 and 610
-LOWSTFR to LOWSTFT duplicate found. Distances are 885 and 1
-LOWSTFR to LOWSTFT duplicate found. Distances are 885 and 1
-LOWSTFR to LOWSTFT duplicate found. Distances are 885 and 1
-MANSNHS to EMBKMNT duplicate found. Distances are 2000 and 1950
-MDLSDSG to MDLSFHH duplicate found. Distances are 50 and 0
-MNCRDGT to CFLDJN duplicate found. Distances are 293 and 202
-MOORPK to WTFDSJN duplicate found. Distances are 1443 and 1353
-MORGTLT to BRBCNLT duplicate found. Distances are 350 and 300
-NEVLFPT to NEVLTMD duplicate found. Distances are 50 and 38
-NEVLTMD to NEVLFPT duplicate found. Distances are 50 and 10
-SPWDJN to HDRSFLD duplicate found. Distances are 643 and 0
-STAINES to STAIDGL duplicate found. Distances are 402 and 10
-STOCDC to STOCGBF duplicate found. Distances are 5 and 10
-TOWERHL to ALDGEST duplicate found. Distances are 250 and 200
-WBTNGBF to WBTNFHH duplicate found. Distances are 338 and 10
-WESSNCB to WOLEYCS duplicate found. Distances are 21 and 0
-WLSDNNJ to WLSDWLJ duplicate found. Distances are 597 and 497
-WLSDRRJ to WLSDHLS duplicate found. Distances are 540 and 140
-WLSDWLJ to WLSDNNJ duplicate found. Distances are 597 and 497
-WSTBRYW to WSTBDRC duplicate found. Distances are 50 and 5
-WTFDSJN to MOORPK duplicate found. Distances are 1393 and 1353
-YORKGBF to YORKFHH duplicate found. Distances are 10 and 1
-YORKPSG to YORK duplicate found. Distances are 60 and 0
-YORKPSG to YORK duplicate found. Distances are 60 and 0
-WCHAPEL to ALDGEST duplicate found. Distances are 620 and 560
-APBYNE to APBY duplicate found. Distances are 10 and 241
-APBY to APBYNE duplicate found. Distances are 241 and 10
-BARO54 to BAROW duplicate found. Distances are 644 and 40
-HAMDLUL to BRNSTLT duplicate found. Distances are 270 and 370
-BROXDPL to BROXBRN duplicate found. Distances are 500 and 50
-BROXBRN to BROXDPL duplicate found. Distances are 50 and 500
-BSTEDMS to BSTEDGL duplicate found. Distances are 160 and 1
-BUTROCT to BUTRDCR duplicate found. Distances are 50 and 830
-BUTRDCR to BUTROCT duplicate found. Distances are 830 and 50
-MNCRDGT to CFLDJN duplicate found. Distances are 293 and 202
-CNTBWGL to CNTBW duplicate found. Distances are 583 and 543
-CORPFLT to CORPCPM duplicate found. Distances are 10 and 30
-CORPCPM to CORPFLT duplicate found. Distances are 30 and 10
-CREWBHN to CREWBHJ duplicate found. Distances are 875 and 1750
-CRGNTNY to CRGNFHH duplicate found. Distances are 0 and 50
-CRGNFHH to CRGNTNY duplicate found. Distances are 50 and 0
-CRKLUGL to CRKL2GL duplicate found. Distances are 2 and 14
-CRKL2GL to CRKLUGL duplicate found. Distances are 14 and 2
-DONCBDR to DONCBJN duplicate found. Distances are 50 and 402
-DONCDDG to DONCDDF duplicate found. Distances are 50 and 0
-DONCDDY to DONCDDG duplicate found. Distances are 0 and 543
-DONCDDY to DONCDDG duplicate found. Distances are 0 and 543
-DONCDDY to DONCDDG duplicate found. Distances are 0 and 543
-DONCDDY to DONCDDG duplicate found. Distances are 0 and 543
-DONCDDY to DONCDDG duplicate found. Distances are 50 and 543
-DONCDDG to DONCDDY duplicate found. Distances are 543 and 0
-DONCRMT to DONCDDY duplicate found. Distances are 38 and 100
-DRIGBNF to DRIGG duplicate found. Distances are 7 and 14
-EBOLDON to EBOLDUL duplicate found. Distances are 200 and 0
-EGLSCDL to EGLSCLF duplicate found. Distances are 400 and 0
-KNSGHST to ELCT duplicate found. Distances are 490 and 150
-KNSGHST to ELCT duplicate found. Distances are 540 and 150
-SKENSIN to ELCT duplicate found. Distances are 480 and 1000
-BRNSTLT to HAMDLUL duplicate found. Distances are 370 and 270
-MOORPK to HAROOTH duplicate found. Distances are 2388 and 1545
-SPWDJN to HDRSFLD duplicate found. Distances are 643 and 0
-SPWDJN to HDRSFLD duplicate found. Distances are 643 and 0
-HITCHUY to HITCGBR duplicate found. Distances are 15 and 19
-HITCGBR to HITCHUY duplicate found. Distances are 19 and 15
-HNSLTIL to HNSLTGB duplicate found. Distances are 0 and 50
-HNSLTGB to HNSLTIL duplicate found. Distances are 50 and 0
-HRLWMLY to HRLWMRR duplicate found. Distances are 3 and 20
-HULLDKG to HULLBQS duplicate found. Distances are 5 and 31
-HULLBQS to HULLDKG duplicate found. Distances are 31 and 5
-IMNGREF to IMNGCPG duplicate found. Distances are 150 and 120
-IMNGCLA to IMNGFHH duplicate found. Distances are 20 and 10
-IMNGCT2 to IMNGHWJ duplicate found. Distances are 523 and 0
-IMNGLGB to IMNGLCR duplicate found. Distances are 10 and 0
-IMNGLOR to IMNGLOF duplicate found. Distances are 22 and 20
-IMNGLGB to IMNGLOR duplicate found. Distances are 171 and 1
-IMNGLOF to IMNGLOR duplicate found. Distances are 20 and 22
-IMNGNOR to IMNGNOG duplicate found. Distances are 125 and 0
-IMNGNOG to IMNGNOR duplicate found. Distances are 0 and 125
-ELCT to KNSGHST duplicate found. Distances are 150 and 490
-ELCT to KNSGHST duplicate found. Distances are 240 and 490
-LANCUGL to LANCSTR duplicate found. Distances are 834 and 1
-LANCUGL to LANCSTR duplicate found. Distances are 834 and 1
-ELCT to LILBDGE duplicate found. Distances are 910 and 610
-LOWSTFT to LOWSTFR duplicate found. Distances are 885 and 1
-LOWSTFT to LOWSTFR duplicate found. Distances are 885 and 1
-LOWSTFT to LOWSTFR duplicate found. Distances are 885 and 1
-EMBKMNT to MANSNHS duplicate found. Distances are 2000 and 1950
-MDLSFHH to MDLSDSG duplicate found. Distances are 0 and 50
-MDLSDSG to MDLSFHH duplicate found. Distances are 50 and 0
-MLTBLFL to MLTBCLS duplicate found. Distances are 50 and 0
-MLTBCLS to MLTBLFL duplicate found. Distances are 0 and 50
-CFLDJN to MNCRDGT duplicate found. Distances are 293 and 202
-MNTLGBR to MNTLLAS duplicate found. Distances are 10 and 46
-HAROOTH to MOORPK duplicate found. Distances are 1545 and 2388
-WTFDSJN to MOORPK duplicate found. Distances are 1443 and 1353
-BRBCNLT to MORGTLT duplicate found. Distances are 350 and 300
-NEVLTMD to NEVLFPT duplicate found. Distances are 38 and 10
-NEVLTMD to NEVLFPT duplicate found. Distances are 50 and 10
-NEVLFPT to NEVLTMD duplicate found. Distances are 10 and 38
-NEVLFPT to NEVLTMD duplicate found. Distances are 50 and 38
-OXENHLM to OXENUGL duplicate found. Distances are 1 and 500
-PENGGBR to PENGAMS duplicate found. Distances are 323 and 77
-PENGAMS to PENGGBR duplicate found. Distances are 77 and 323
-PTBNGBR to PTBNDBS duplicate found. Distances are 10 and 120
-PTBNDBS to PTBNGBR duplicate found. Distances are 120 and 10
-SHPYCEA to SHPYCE duplicate found. Distances are 35 and 75
-SHPYCE to SHPYCEA duplicate found. Distances are 75 and 35
-SNDYFD to SNDY duplicate found. Distances are 10 and 39
-SNDY to SNDYFD duplicate found. Distances are 39 and 10
-HDRSFLD to SPWDJN duplicate found. Distances are 0 and 643
-STOCGBF to STOCDC duplicate found. Distances are 5 and 10
-TABYTMD to TABYFLD duplicate found. Distances are 190 and 100
-TABYFLD to TABYTMD duplicate found. Distances are 100 and 190
-TOLWTHS to TOLWTH duplicate found. Distances are 201 and 10
-TONBPOS to TONBDG duplicate found. Distances are 322 and 0
-TONBDWY to TONBDWG duplicate found. Distances are 382 and 637
-TONBDWG to TONBDWY duplicate found. Distances are 637 and 382
-TONBDG to TONBPOS duplicate found. Distances are 0 and 322
-ALDGEST to TOWERHL duplicate found. Distances are 250 and 200
-UDNGFHH to UDNGCLR duplicate found. Distances are 0 and 50
-UDNGCLR to UDNGFHH duplicate found. Distances are 50 and 0
-WBTNFHH to WBTNGBF duplicate found. Distances are 338 and 10
-WLSDRRJ to WLSDHLS duplicate found. Distances are 540 and 140
-WLSDRRJ to WLSDHLS duplicate found. Distances are 540 and 140
-WLSDHLS to WLSDRRJ duplicate found. Distances are 140 and 540
-WLSDHLS to WLSDRRJ duplicate found. Distances are 140 and 540
-WSTBDRC to WSTBRYW duplicate found. Distances are 50 and 5
-MOORPK to WTFDSJN duplicate found. Distances are 1393 and 1353
-YORKFHH to YORKGBF duplicate found. Distances are 10 and 1
-YORK to YORKPSG duplicate found. Distances are 60 and 0
-YORK to YORKPSG duplicate found. Distances are 60 and 0
-YORKYSF to YORKWRD duplicate found. Distances are 10 and 40
-YORKWRD to YORKYSF duplicate found. Distances are 40 and 10
+ALDGEST to WCHAPEL duplicate found. 1st Distance: 620, Line Code EB . 2nd Distance: 560, Line Code WB
+CFLDJN to MNCRDGT duplicate found. 1st Distance: 293, Line Code UB . 2nd Distance: 202, Line Code ML
+CNTBW to CNTBWGL duplicate found. 1st Distance: 583, Line Code L2 . 2nd Distance: 543, Line Code L1
+CREWBHJ to CREWBHN duplicate found. 1st Distance: 875, Line Code DSI . 2nd Distance: 1750, Line Code DA
+CREWBHJ to CREWBHN duplicate found. 1st Distance: 875, Line Code DFI . 2nd Distance: 1750, Line Code DA
+DONCDDF to DONCDDG duplicate found. 1st Distance: 50, Line Code [5] . 2nd Distance: 0, Line Code [2]
+DONCDDG to DONCDDY duplicate found. 1st Distance: 50, Line Code [5] . 2nd Distance: 0, Line Code [1]
+DONCDDY to DONCRMT duplicate found. 1st Distance: 38, Line Code [2] . 2nd Distance: 100, Line Code [1]
+DRIGG to DRIGBNF duplicate found. 1st Distance: 7, Line Code [2] . 2nd Distance: 14, Line Code [1]
+EBOLDUL to EBOLDON duplicate found. 1st Distance: 200, Line Code [1] . 2nd Distance: 0, Line Code [2]
+ELCT to KNSGHST duplicate found. 1st Distance: 540, Line Code [2] . 2nd Distance: 490, Line Code [4]
+ELCT to SKENSIN duplicate found. 1st Distance: 480, Line Code WB . 2nd Distance: 1000, Line Code EB
+HRLWMRR to HRLWMLY duplicate found. 1st Distance: 3, Line Code [2] . 2nd Distance: 20, Line Code [1]
+HULLDKG to HULLBIG duplicate found. 1st Distance: 444, Line Code [1] . 2nd Distance: 1269, Line Code [2]
+IMNGCPG to IMNGREF duplicate found. 1st Distance: 150, Line Code [2] . 2nd Distance: 120, Line Code [1]
+IMNGFHH to IMNGCLA duplicate found. 1st Distance: 20, Line Code [2] . 2nd Distance: 10, Line Code [1]
+IMNGHWJ to IMNGCT2 duplicate found. 1st Distance: 523, Line Code [1] . 2nd Distance: 0, Line Code [2]
+IMNGLCR to IMNGLGB duplicate found. 1st Distance: 10, Line Code [1] . 2nd Distance: 0, Line Code [2]
+IMNGLOR to IMNGLGB duplicate found. 1st Distance: 171, Line Code [1] . 2nd Distance: 1, Line Code [2]
+KNSGHST to ELCT duplicate found. 1st Distance: 240, Line Code [1] . 2nd Distance: 150, Line Code [3]
+LILBDGE to ELCT duplicate found. 1st Distance: 910, Line Code [1] . 2nd Distance: 610, Line Code [2]
+LOWSTFR to LOWSTFT duplicate found. 1st Distance: 885, Line Code 2 . 2nd Distance: 1, Line Code E
+LOWSTFR to LOWSTFT duplicate found. 1st Distance: 885, Line Code 1 . 2nd Distance: 1, Line Code E
+LOWSTFR to LOWSTFT duplicate found. 1st Distance: 885, Line Code 3 . 2nd Distance: 1, Line Code E
+MANSNHS to EMBKMNT duplicate found. 1st Distance: 2000, Line Code EB . 2nd Distance: 1950, Line Code WB
+MDLSDSG to MDLSFHH duplicate found. 1st Distance: 50, Line Code OO . 2nd Distance: 0, Line Code [3]
+MNCRDGT to CFLDJN duplicate found. 1st Distance: 293, Line Code DB . 2nd Distance: 202, Line Code ML
+MOORPK to WTFDSJN duplicate found. 1st Distance: 1443, Line Code ML . 2nd Distance: 1353, Line Code [3]
+MORGTLT to BRBCNLT duplicate found. 1st Distance: 350, Line Code [1] . 2nd Distance: 300, Line Code [2]
+NEVLFPT to NEVLTMD duplicate found. 1st Distance: 50, Line Code [2] . 2nd Distance: 38, Line Code GL
+NEVLTMD to NEVLFPT duplicate found. 1st Distance: 50, Line Code [1] . 2nd Distance: 10, Line Code [5]
+SPWDJN to HDRSFLD duplicate found. 1st Distance: 643, Line Code OO . 2nd Distance: 0, Line Code P2
+STAINES to STAIDGL duplicate found. 1st Distance: 402, Line Code OO . 2nd Distance: 10, Line Code _OO
+STOCDC to STOCGBF duplicate found. 1st Distance: 5, Line Code [2] . 2nd Distance: 10, Line Code [1]
+TOWERHL to ALDGEST duplicate found. 1st Distance: 250, Line Code [1] . 2nd Distance: 200, Line Code [2]
+WBTNGBF to WBTNFHH duplicate found. 1st Distance: 338, Line Code [1] . 2nd Distance: 10, Line Code [2]
+WESSNCB to WOLEYCS duplicate found. 1st Distance: 21, Line Code OO[2] . 2nd Distance: 0, Line Code OO
+WLSDNNJ to WLSDWLJ duplicate found. 1st Distance: 597, Line Code FL . 2nd Distance: 497, Line Code SL
+WLSDRRJ to WLSDHLS duplicate found. 1st Distance: 540, Line Code 34 . 2nd Distance: 140, Line Code RV
+WLSDWLJ to WLSDNNJ duplicate found. 1st Distance: 597, Line Code FL . 2nd Distance: 497, Line Code SL
+WSTBRYW to WSTBDRC duplicate found. 1st Distance: 50, Line Code DR . 2nd Distance: 5, Line Code OO
+WTFDSJN to MOORPK duplicate found. 1st Distance: 1393, Line Code ML[2] . 2nd Distance: 1353, Line Code [4]
+YORKGBF to YORKFHH duplicate found. 1st Distance: 10, Line Code [1] . 2nd Distance: 1, Line Code [2]
+YORKPSG to YORK duplicate found. 1st Distance: 60, Line Code [1] . 2nd Distance: 0, Line Code DL
+YORKPSG to YORK duplicate found. 1st Distance: 60, Line Code LSL . 2nd Distance: 0, Line Code DL
+WCHAPEL to ALDGEST duplicate found. 1st Distance: 620, Line Code EB . 2nd Distance: 560, Line Code WB
+APBYNE to APBY duplicate found. 1st Distance: 10, Line Code N . 2nd Distance: 241, Line Code S
+APBY to APBYNE duplicate found. 1st Distance: 241, Line Code S . 2nd Distance: 10, Line Code N
+BARO54 to BAROW duplicate found. 1st Distance: 644, Line Code DN . 2nd Distance: 40, Line Code OO
+HAMDLUL to BRNSTLT duplicate found. 1st Distance: 270, Line Code [1] . 2nd Distance: 370, Line Code EB
+BROXDPL to BROXBRN duplicate found. 1st Distance: 500, Line Code DPL . 2nd Distance: 50, Line Code DC
+BROXBRN to BROXDPL duplicate found. 1st Distance: 50, Line Code DC . 2nd Distance: 500, Line Code DPL
+BSTEDMS to BSTEDGL duplicate found. 1st Distance: 160, Line Code OO . 2nd Distance: 1, Line Code DGL
+BUTROCT to BUTRDCR duplicate found. 1st Distance: 50, Line Code [1] . 2nd Distance: 830, Line Code [2]
+BUTRDCR to BUTROCT duplicate found. 1st Distance: 830, Line Code [2] . 2nd Distance: 50, Line Code [1]
+MNCRDGT to CFLDJN duplicate found. 1st Distance: 293, Line Code UB . 2nd Distance: 202, Line Code ML
+CNTBWGL to CNTBW duplicate found. 1st Distance: 583, Line Code L2 . 2nd Distance: 543, Line Code L1
+CORPFLT to CORPCPM duplicate found. 1st Distance: 10, Line Code W . 2nd Distance: 30, Line Code E
+CORPCPM to CORPFLT duplicate found. 1st Distance: 30, Line Code E . 2nd Distance: 10, Line Code W
+CREWBHN to CREWBHJ duplicate found. 1st Distance: 875, Line Code DSI . 2nd Distance: 1750, Line Code DA
+CRGNTNY to CRGNFHH duplicate found. 1st Distance: 0, Line Code W . 2nd Distance: 50, Line Code E
+CRGNFHH to CRGNTNY duplicate found. 1st Distance: 50, Line Code E . 2nd Distance: 0, Line Code W
+CRKLUGL to CRKL2GL duplicate found. 1st Distance: 2, Line Code [2] . 2nd Distance: 14, Line Code [1]
+CRKL2GL to CRKLUGL duplicate found. 1st Distance: 14, Line Code [1] . 2nd Distance: 2, Line Code [2]
+DONCBDR to DONCBJN duplicate found. 1st Distance: 50, Line Code OO . 2nd Distance: 402, Line Code DR
+DONCDDG to DONCDDF duplicate found. 1st Distance: 50, Line Code [5] . 2nd Distance: 0, Line Code [2]
+DONCDDY to DONCDDG duplicate found. 1st Distance: 0, Line Code [1] . 2nd Distance: 543, Line Code WSL
+DONCDDY to DONCDDG duplicate found. 1st Distance: 0, Line Code [3] . 2nd Distance: 543, Line Code WSL
+DONCDDY to DONCDDG duplicate found. 1st Distance: 0, Line Code [4] . 2nd Distance: 543, Line Code WSL
+DONCDDY to DONCDDG duplicate found. 1st Distance: 0, Line Code [2] . 2nd Distance: 543, Line Code WSL
+DONCDDY to DONCDDG duplicate found. 1st Distance: 50, Line Code [5] . 2nd Distance: 543, Line Code WSL
+DONCDDG to DONCDDY duplicate found. 1st Distance: 543, Line Code DS1 . 2nd Distance: 0, Line Code [1]
+DONCRMT to DONCDDY duplicate found. 1st Distance: 38, Line Code [2] . 2nd Distance: 100, Line Code [1]
+DRIGBNF to DRIGG duplicate found. 1st Distance: 7, Line Code [2] . 2nd Distance: 14, Line Code [1]
+EBOLDON to EBOLDUL duplicate found. 1st Distance: 200, Line Code [1] . 2nd Distance: 0, Line Code [2]
+EGLSCDL to EGLSCLF duplicate found. 1st Distance: 400, Line Code [1] . 2nd Distance: 0, Line Code [2]
+KNSGHST to ELCT duplicate found. 1st Distance: 490, Line Code [4] . 2nd Distance: 150, Line Code [3]
+KNSGHST to ELCT duplicate found. 1st Distance: 540, Line Code [2] . 2nd Distance: 150, Line Code [3]
+SKENSIN to ELCT duplicate found. 1st Distance: 480, Line Code WB . 2nd Distance: 1000, Line Code EB
+BRNSTLT to HAMDLUL duplicate found. 1st Distance: 370, Line Code EB . 2nd Distance: 270, Line Code [1]
+MOORPK to HAROOTH duplicate found. 1st Distance: 2388, Line Code ML . 2nd Distance: 1545, Line Code ML[2]
+SPWDJN to HDRSFLD duplicate found. 1st Distance: 643, Line Code _OO . 2nd Distance: 0, Line Code P2
+SPWDJN to HDRSFLD duplicate found. 1st Distance: 643, Line Code _P2 . 2nd Distance: 0, Line Code P2
+HITCHUY to HITCGBR duplicate found. 1st Distance: 15, Line Code _OO . 2nd Distance: 19, Line Code OO
+HITCGBR to HITCHUY duplicate found. 1st Distance: 19, Line Code _OO . 2nd Distance: 15, Line Code OO
+HNSLTIL to HNSLTGB duplicate found. 1st Distance: 0, Line Code [1] . 2nd Distance: 50, Line Code OO
+HNSLTGB to HNSLTIL duplicate found. 1st Distance: 50, Line Code OO . 2nd Distance: 0, Line Code [1]
+HRLWMLY to HRLWMRR duplicate found. 1st Distance: 3, Line Code [2] . 2nd Distance: 20, Line Code [1]
+HULLDKG to HULLBQS duplicate found. 1st Distance: 5, Line Code OO[2] . 2nd Distance: 31, Line Code OO
+HULLBQS to HULLDKG duplicate found. 1st Distance: 31, Line Code OO . 2nd Distance: 5, Line Code OO[2]
+IMNGREF to IMNGCPG duplicate found. 1st Distance: 150, Line Code [2] . 2nd Distance: 120, Line Code [1]
+IMNGCLA to IMNGFHH duplicate found. 1st Distance: 20, Line Code [2] . 2nd Distance: 10, Line Code [1]
+IMNGCT2 to IMNGHWJ duplicate found. 1st Distance: 523, Line Code [1] . 2nd Distance: 0, Line Code [2]
+IMNGLGB to IMNGLCR duplicate found. 1st Distance: 10, Line Code [1] . 2nd Distance: 0, Line Code [2]
+IMNGLOR to IMNGLOF duplicate found. 1st Distance: 22, Line Code [2] . 2nd Distance: 20, Line Code [1]
+IMNGLGB to IMNGLOR duplicate found. 1st Distance: 171, Line Code [1] . 2nd Distance: 1, Line Code [2]
+IMNGLOF to IMNGLOR duplicate found. 1st Distance: 20, Line Code [1] . 2nd Distance: 22, Line Code [2]
+IMNGNOR to IMNGNOG duplicate found. 1st Distance: 125, Line Code [2] . 2nd Distance: 0, Line Code [1]
+IMNGNOG to IMNGNOR duplicate found. 1st Distance: 0, Line Code [1] . 2nd Distance: 125, Line Code [2]
+ELCT to KNSGHST duplicate found. 1st Distance: 150, Line Code [3] . 2nd Distance: 490, Line Code [4]
+ELCT to KNSGHST duplicate found. 1st Distance: 240, Line Code [1] . 2nd Distance: 490, Line Code [4]
+LANCUGL to LANCSTR duplicate found. 1st Distance: 834, Line Code ML . 2nd Distance: 1, Line Code OO
+LANCUGL to LANCSTR duplicate found. 1st Distance: 834, Line Code GL . 2nd Distance: 1, Line Code OO
+ELCT to LILBDGE duplicate found. 1st Distance: 910, Line Code [1] . 2nd Distance: 610, Line Code [2]
+LOWSTFT to LOWSTFR duplicate found. 1st Distance: 885, Line Code 2 . 2nd Distance: 1, Line Code E
+LOWSTFT to LOWSTFR duplicate found. 1st Distance: 885, Line Code 1 . 2nd Distance: 1, Line Code E
+LOWSTFT to LOWSTFR duplicate found. 1st Distance: 885, Line Code 3 . 2nd Distance: 1, Line Code E
+EMBKMNT to MANSNHS duplicate found. 1st Distance: 2000, Line Code EB . 2nd Distance: 1950, Line Code WB
+MDLSFHH to MDLSDSG duplicate found. 1st Distance: 0, Line Code [3] . 2nd Distance: 50, Line Code [2]
+MDLSDSG to MDLSFHH duplicate found. 1st Distance: 50, Line Code [2] . 2nd Distance: 0, Line Code [3]
+MLTBLFL to MLTBCLS duplicate found. 1st Distance: 50, Line Code DUPL[2] . 2nd Distance: 0, Line Code DUPL
+MLTBCLS to MLTBLFL duplicate found. 1st Distance: 0, Line Code DUPL . 2nd Distance: 50, Line Code DUPL[2]
+CFLDJN to MNCRDGT duplicate found. 1st Distance: 293, Line Code DB . 2nd Distance: 202, Line Code ML
+MNTLGBR to MNTLLAS duplicate found. 1st Distance: 10, Line Code UGL . 2nd Distance: 46, Line Code DGL
+HAROOTH to MOORPK duplicate found. 1st Distance: 1545, Line Code ML[2] . 2nd Distance: 2388, Line Code ML
+WTFDSJN to MOORPK duplicate found. 1st Distance: 1443, Line Code ML . 2nd Distance: 1353, Line Code [4]
+BRBCNLT to MORGTLT duplicate found. 1st Distance: 350, Line Code [1] . 2nd Distance: 300, Line Code [2]
+NEVLTMD to NEVLFPT duplicate found. 1st Distance: 38, Line Code GL . 2nd Distance: 10, Line Code [5]
+NEVLTMD to NEVLFPT duplicate found. 1st Distance: 50, Line Code [2] . 2nd Distance: 10, Line Code [5]
+NEVLFPT to NEVLTMD duplicate found. 1st Distance: 10, Line Code [5] . 2nd Distance: 38, Line Code GL
+NEVLFPT to NEVLTMD duplicate found. 1st Distance: 50, Line Code [1] . 2nd Distance: 38, Line Code GL
+OXENHLM to OXENUGL duplicate found. 1st Distance: 1, Line Code UGL . 2nd Distance: 500, Line Code GL
+PENGGBR to PENGAMS duplicate found. 1st Distance: 323, Line Code _REC3 . 2nd Distance: 77, Line Code REC3
+PENGAMS to PENGGBR duplicate found. 1st Distance: 77, Line Code _REC3 . 2nd Distance: 323, Line Code REC3
+PTBNGBR to PTBNDBS duplicate found. 1st Distance: 10, Line Code [2] . 2nd Distance: 120, Line Code [1]
+PTBNDBS to PTBNGBR duplicate found. 1st Distance: 120, Line Code [1] . 2nd Distance: 10, Line Code [2]
+SHPYCEA to SHPYCE duplicate found. 1st Distance: 35, Line Code [2] . 2nd Distance: 75, Line Code [1]
+SHPYCE to SHPYCEA duplicate found. 1st Distance: 75, Line Code [1] . 2nd Distance: 35, Line Code [2]
+SNDYFD to SNDY duplicate found. 1st Distance: 10, Line Code DGL . 2nd Distance: 39, Line Code GL
+SNDY to SNDYFD duplicate found. 1st Distance: 39, Line Code DGL . 2nd Distance: 10, Line Code GL
+HDRSFLD to SPWDJN duplicate found. 1st Distance: 0, Line Code _P2 . 2nd Distance: 643, Line Code OO
+STOCGBF to STOCDC duplicate found. 1st Distance: 5, Line Code [2] . 2nd Distance: 10, Line Code [1]
+TABYTMD to TABYFLD duplicate found. 1st Distance: 190, Line Code OO . 2nd Distance: 100, Line Code [2]
+TABYFLD to TABYTMD duplicate found. 1st Distance: 100, Line Code [2] . 2nd Distance: 190, Line Code OO
+TOLWTHS to TOLWTH duplicate found. 1st Distance: 201, Line Code _OO . 2nd Distance: 10, Line Code OO
+TONBPOS to TONBDG duplicate found. 1st Distance: 322, Line Code MLO1 . 2nd Distance: 0, Line Code MLO2
+TONBDWY to TONBDWG duplicate found. 1st Distance: 382, Line Code DG . 2nd Distance: 637, Line Code GL
+TONBDWG to TONBDWY duplicate found. 1st Distance: 637, Line Code GL . 2nd Distance: 382, Line Code DG
+TONBDG to TONBPOS duplicate found. 1st Distance: 0, Line Code MLO2 . 2nd Distance: 322, Line Code MLO1
+ALDGEST to TOWERHL duplicate found. 1st Distance: 250, Line Code [1] . 2nd Distance: 200, Line Code [2]
+UDNGFHH to UDNGCLR duplicate found. 1st Distance: 0, Line Code [1] . 2nd Distance: 50, Line Code OO
+UDNGCLR to UDNGFHH duplicate found. 1st Distance: 50, Line Code OO . 2nd Distance: 0, Line Code [1]
+WBTNFHH to WBTNGBF duplicate found. 1st Distance: 338, Line Code [1] . 2nd Distance: 10, Line Code [2]
+WLSDRRJ to WLSDHLS duplicate found. 1st Distance: 540, Line Code 12 . 2nd Distance: 140, Line Code RV
+WLSDRRJ to WLSDHLS duplicate found. 1st Distance: 540, Line Code EL . 2nd Distance: 140, Line Code RV
+WLSDHLS to WLSDRRJ duplicate found. 1st Distance: 140, Line Code RV . 2nd Distance: 540, Line Code 12
+WLSDHLS to WLSDRRJ duplicate found. 1st Distance: 140, Line Code WL . 2nd Distance: 540, Line Code 12
+WSTBDRC to WSTBRYW duplicate found. 1st Distance: 50, Line Code DR . 2nd Distance: 5, Line Code _OO
+MOORPK to WTFDSJN duplicate found. 1st Distance: 1393, Line Code ML[2] . 2nd Distance: 1353, Line Code [3]
+YORKFHH to YORKGBF duplicate found. 1st Distance: 10, Line Code [1] . 2nd Distance: 1, Line Code [2]
+YORK to YORKPSG duplicate found. 1st Distance: 60, Line Code [1] . 2nd Distance: 0, Line Code LSL
+YORK to YORKPSG duplicate found. 1st Distance: 60, Line Code DL . 2nd Distance: 0, Line Code LSL
+YORKYSF to YORKWRD duplicate found. 1st Distance: 10, Line Code [1] . 2nd Distance: 40, Line Code OO
+YORKWRD to YORKYSF duplicate found. 1st Distance: 40, Line Code OO . 2nd Distance: 10, Line Code [1]
