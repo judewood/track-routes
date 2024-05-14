@@ -1,9 +1,11 @@
 package inputHandling
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/judewood/routeDistances/domain"
+	"github.com/judewood/routeDistances/fileStore"
 	"github.com/judewood/routeDistances/models"
 	"github.com/judewood/routeDistances/routes"
 )
@@ -39,6 +41,7 @@ func createInputData(routeSections *[]models.RouteSection) *[]routes.InputData {
 }
 
 func RemoveDuplicates(input *[]models.RouteSection) *[]models.RouteSection {
+	var duplicates []string
 	var distinct []models.RouteSection
 
 	for _, v := range *input {
@@ -47,6 +50,12 @@ func RemoveDuplicates(input *[]models.RouteSection) *[]models.RouteSection {
 		skip := false
 		for _, u := range distinct {
 			if v.From == u.From && v.To == u.To {
+				if v.DistanceFrom != u.DistanceFrom {
+					duplicate := fmt.Sprintf("%s to %s duplicate found. Distances are %v and %v", v.From, v.To, v.DistanceFrom, u.DistanceFrom)
+					duplicates = append(duplicates, duplicate)
+					//use the shortest
+					v.DistanceFrom = min(v.DistanceFrom, u.DistanceFrom)
+				}
 				// if v.DistanceFrom != u.DistanceFrom {
 				// 	fmt.Println("duplicate route section found with different distance", v, u)
 				// }
@@ -57,6 +66,9 @@ func RemoveDuplicates(input *[]models.RouteSection) *[]models.RouteSection {
 		if !skip {
 			distinct = append(distinct, v)
 		}
+	}
+	if len(duplicates) > 0 {
+		fileStore.WriteDebug("duplicates.txt", &duplicates)
 	}
 	return &distinct
 }
@@ -78,6 +90,13 @@ func ApplyReverseDistance(input *[]models.RouteSection) *[]models.RouteSection {
 		distinct = append(distinct, v)
 	}
 	return &distinct
+}
+
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
 }
 
 func clean(input string) string {

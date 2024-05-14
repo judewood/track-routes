@@ -3,6 +3,8 @@ package routes
 import (
 	"fmt"
 	"math"
+
+	"github.com/judewood/routeDistances/fileStore"
 )
 
 func NodesAreConnected(startNode *Node, endNode *Node, g *ItemGraph, routeSectionCount int) bool {
@@ -38,6 +40,8 @@ func NodesAreConnected(startNode *Node, endNode *Node, g *ItemGraph, routeSectio
 }
 
 func GetShortestPath(startNode *Node, endNode *Node, g *ItemGraph) (int, int) {
+	var sections []string
+
 	visited := make(map[string]bool)
 	dist := make(map[string]int)
 	prev := make(map[string]string)
@@ -58,7 +62,7 @@ func GetShortestPath(startNode *Node, endNode *Node, g *ItemGraph) (int, int) {
 		//fmt.Println("dequeued", v.Node.Value, "to", v.Node2.Value, "from", v.DistanceFrom, "to", v.DistanceTo , "queue size", pq.Size())
 		// if v.Node.Value != startNode.Value {
 		// 	fmt.Println("dequeued", v.Node.Value, v.Node2.Value, "from", v.DistanceFrom, "to", v.DistanceTo, "queue size", pq.Size())
-		// } 
+		// }
 
 		//}
 
@@ -77,9 +81,12 @@ func GetShortestPath(startNode *Node, endNode *Node, g *ItemGraph) (int, int) {
 					// if val.FromNode.Value == "BERKHMD" || val.FromNode.Value == "BONENDJ" || val.FromNode.Value == "BORN421" || val.FromNode.Value == "HEMLHMP" {
 					// 	fmt.Println("queueing", val.FromNode.Value, ", ", val.Node2.Value,  "DistanceFrom", val.DistanceFrom, "DistanceTo", val.DistanceTo)
 					// }
-							if v.Node.Value != startNode.Value {
-			fmt.Println("queueing", v.Node.Value, v.Node2.Value, "from", v.DistanceFrom, "to", v.DistanceTo, "queue size", pq.Size())
-		} 
+					if v.Node.Value != startNode.Value {
+						debugOutput := fmt.Sprintf("queueing %s from %s. From: %v To: %v. Queue size: %v", v.Node.Value, v.Node2.Value, v.DistanceFrom, v.DistanceTo, pq.Size())
+						fmt.Println("queueing", v.Node.Value, v.Node2.Value, "from", v.DistanceFrom, "to", v.DistanceTo, "queue size", pq.Size())
+						//fmt.Println("finalArr 1", finalArr)
+						sections = append(sections, debugOutput)
+					}
 
 					store := Vertex{
 						Node:         val.FromNode,
@@ -95,6 +102,8 @@ func GetShortestPath(startNode *Node, endNode *Node, g *ItemGraph) (int, int) {
 					// 	fmt.Println("store", store.Node.Value, store.Distance)
 					// }
 					pq.Enqueue(store)
+				} else{
+					
 				}
 			}
 		}
@@ -102,7 +111,7 @@ func GetShortestPath(startNode *Node, endNode *Node, g *ItemGraph) (int, int) {
 	pathVal := prev[endNode.Value]
 	//fmt.Println("pathVal", prev[endNode.Value])
 	var finalArr []string
-	fmt.Println("finalArr 1", finalArr)
+	//fmt.Println("finalArr 1", finalArr)
 	finalArr = append(finalArr, endNode.Value)
 	for pathVal != startNode.Value {
 		finalArr = append(finalArr, pathVal)
@@ -118,7 +127,8 @@ func GetShortestPath(startNode *Node, endNode *Node, g *ItemGraph) (int, int) {
 	// for _, f := range finalArr {
 	// 	fmt.Println(f)
 	// }
-
+	fileStore.WriteDebug("finalArray.txt", &finalArr)
+	fileStore.WriteDebug("debugOutput.txt", &sections)
 	numTracks := len(finalArr) - 1
 	return numTracks, dist[endNode.Value]
 

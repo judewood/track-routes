@@ -1,6 +1,7 @@
 package fileStore
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -57,4 +58,24 @@ func (f *FileStore) WriteFile(records *[]models.RouteDistance) (int, error) {
 		return 0, err
 	}
 	return len(*records), nil
+}
+
+func WriteDebug(filename string, items *[]string, ) (int, error) {
+	file, err := os.Create(filename)
+	if err != nil {
+		// handle error
+		msg := fmt.Sprintf("Could not create file %s", filename)
+		log.Fatal(msg)
+		return 0, err
+	}
+
+	// Ensure file is closed before exiting function
+	defer file.Close()
+	for _, line := range *items {
+        _, err := file.WriteString(line + "\n")
+        if err != nil {
+            log.Fatal(err)
+        }
+    }
+	return len(*items), nil
 }
