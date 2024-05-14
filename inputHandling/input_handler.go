@@ -56,9 +56,6 @@ func RemoveDuplicates(input *[]models.RouteSection) *[]models.RouteSection {
 					//use the shortest
 					v.DistanceFrom = min(v.DistanceFrom, u.DistanceFrom)
 				}
-				// if v.DistanceFrom != u.DistanceFrom {
-				// 	fmt.Println("duplicate route section found with different distance", v, u)
-				// }
 				skip = true
 				break
 			}
