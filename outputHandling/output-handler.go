@@ -39,46 +39,46 @@ func (s *OutputStruct) OutputRoutes(inputData *[]routes.InputData, routes *[]mod
 
 func GetSampleRoutes() *[]models.StartEnd {
 	var outputSample = []models.StartEnd{
-		{
-			From: "BERKHMD",
-			To:   "TRING",
-		},
-		{
-			From: "HYWRDSH",
-			To:   "KEYMERJ",
-		},
-		{
-			From: "BERKHMD",
-			To:   "HEMLHMP",
-		},
-		{
-			From: "BHAMNWS",
-			To:   "BHAMINT",
-		},
-		{
-			From: "BERKHMD",
-			To:   "WATFDJ",
-		},
-		{
-			From: "EUSTON",
-			To:   "BERKHMD",
-		},
+		// {
+		// 	From: "BERKHMD",
+		// 	To:   "TRING",
+		// },
+		// {
+		// 	From: "HYWRDSH",
+		// 	To:   "KEYMERJ",
+		// },
+		// {
+		// 	From: "BERKHMD",
+		// 	To:   "HEMLHMP",
+		// },
+		// {
+		// 	From: "BHAMNWS",
+		// 	To:   "BHAMINT",
+		// },
+		// {
+		// 	From: "BERKHMD",
+		// 	To:   "WATFDJ",
+		// },
+		// {
+		// 	From: "EUSTON",
+		// 	To:   "BERKHMD",
+		// },
 		{
 			From: "MNCRPIC",
 			To:   "CRDFCEN",
 		},
-		{
-			From: "KNGX",
-			To:   "EDINBUR",
-		},
-		{
-			From: "THURSO",
-			To:   "PENZNCE",
-		},
-		{
-			From: "PHBR",
-			To:   "RYDP",
-		},
+		// {
+		// 	From: "KNGX",
+		// 	To:   "EDINBUR",
+		// },
+		// {
+		// 	From: "THURSO",
+		// 	To:   "PENZNCE",
+		// },
+		// {
+		// 	From: "PHBR",
+		// 	To:   "RYDP",
+		// },
 	}
 	return &outputSample
 }

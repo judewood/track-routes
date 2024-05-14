@@ -4,7 +4,7 @@ type RouteSection struct {
 	From         string `csv:"FROM_TIPLOC"` // .csv column headers
 	To           string `csv:"TO_TIPLOC"`
 	DistanceFrom int    `csv:"DISTANCE"`
-	DistanceTo   int
+	LineCode     string `csv:"LINE_CODE"`
 }
 
 type StartEnd struct {

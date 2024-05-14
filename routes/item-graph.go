@@ -1,6 +1,8 @@
 package routes
 
-import "sync"
+import (
+	"sync"
+)
 
 type ItemGraph struct {
 	Nodes []*Node
@@ -11,7 +13,7 @@ type ItemGraph struct {
 func CreateGraph(data InputGraph) *ItemGraph {
 	var g ItemGraph
 	nodes := make(map[string]*Node)
-	for _, v := range data.Graph {
+	for _, v := range data.InputData {
 		if _, found := nodes[v.To]; !found {
 			nA := Node{v.To}
 			nodes[v.To] = &nA
@@ -22,7 +24,7 @@ func CreateGraph(data InputGraph) *ItemGraph {
 			nodes[v.From] = &nA
 			g.AddNode(&nA)
 		}
-		g.AddEdge(nodes[v.To], nodes[v.From], v.DistanceFrom, v.DistanceTo)
+		g.AddEdge(nodes[v.To], nodes[v.From], v.DistanceFrom, v.LineCode)
 	}
 	return &g
 }
@@ -35,7 +37,7 @@ func (g *ItemGraph) AddNode(n *Node) {
 }
 
 // AddEdge adds an edge to the graph
-func (g *ItemGraph) AddEdge(fromNode, toNode *Node, distanceFrom, distanceTo int) {
+func (g *ItemGraph) AddEdge(fromNode, toNode *Node, distanceFrom int, lineCode string) {
 	g.Lock.Lock()
 	defer g.Lock.Unlock()
 	if g.Edges == nil {
@@ -43,9 +45,9 @@ func (g *ItemGraph) AddEdge(fromNode, toNode *Node, distanceFrom, distanceTo int
 	}
 	ed1 := Edge{
 		FromNode:     toNode,
-		Node2:        fromNode,
+		ToNode:       fromNode,
 		DistanceFrom: distanceFrom,
-		DistanceTo:   distanceTo,
+		LineCode:     lineCode,
 	}
 	g.Edges[*fromNode] = append(g.Edges[*fromNode], &ed1)
 }
