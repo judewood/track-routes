@@ -1,8 +1,8 @@
 package models
 
 type RouteSection struct {
-	From               string `csv:"FROM_TIPLOC"` // .csv column headers
-	To                 string `csv:"TO_TIPLOC"`
+	To                 string `csv:"FROM_TIPLOC"` // .csv column headers
+	From               string `csv:"TO_TIPLOC"`
 	CumulativeDistance int
 	Distance           int    `csv:"DISTANCE"`
 	LineCode           string `csv:"LINE_CODE"`

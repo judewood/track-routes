@@ -13,25 +13,26 @@ func TIPLOCsAreConnected(startTIPLOC string, endTIPLOC string, g *ItemGraph, rou
 	q := Queue{}
 	pq := q.NewQ()
 	start := models.RouteSection{
-		From:               startTIPLOC,
+		From:               "", //No from value as this is our start point
+		To:                 startTIPLOC,
 		CumulativeDistance: 0,
 		LineCode:           "",
 	}
 	pq.Enqueue(start)
 	for !pq.IsEmpty() {
 		v := pq.Dequeue() //take next item form the queue
-		if visited[v.From] {
+		if visited[v.To] {
 			continue
 		}
-		visited[v.From] = true          //and mark it as visited
-		near := g.RouteSections[v.From] //get its neighbours
+		visited[v.To] = true          //and mark it as visited
+		near := g.RouteSections[v.To] //get its neighbours
 		for _, val := range near {
-			if val.From == endTIPLOC {
+			if val.To == endTIPLOC {
 				return true
 			}
-			if !visited[val.From] {
+			if !visited[val.To] {
 				data := models.RouteSection{
-					From:               val.From,
+					To:                 val.To,
 					CumulativeDistance: 0,
 					LineCode:           val.LineCode,
 				}
@@ -51,52 +52,53 @@ func GetShortestRoute(startTIPLOC string, endTIPLOC string, g *ItemGraph) (int, 
 	q := Queue{}
 	pq := q.NewQ()
 	startRouteSection := models.RouteSection{
-		From:               startTIPLOC,
-		To:                 "", // there is no previous TIPLOC
+		To:                 startTIPLOC,
+		From:               "", // there is no previous TIPLOC
 		CumulativeDistance: 0,
 		LineCode:           "",
 	}
-	for _, nval := range g.TIPLOCs {
-		dist[*nval] = math.MaxInt64 //set initial distances to each TIPLOC to max value
+	for _, tiploc := range g.TIPLOCs {
+		dist[*tiploc] = math.MaxInt64 //set initial distances to each TIPLOC to max value
 	}
-	dist[startTIPLOC] = startRouteSection.CumulativeDistance // then set distance to start TIPLOC to zero
+	dist[startTIPLOC] = 0 // then set distance to start TIPLOC to zero
 	pq.Enqueue(startRouteSection)
+
 	for !pq.IsEmpty() {
-		v := pq.Dequeue()
-		if visited[v.From] {
+		currTIPLOC := pq.Dequeue()
+		if visited[currTIPLOC.To] {
 			continue
 		}
-		visited[v.From] = true
-		near := g.RouteSections[v.From] //get sections connected to current TIPLOC
-		for _, val := range near {
-			if !visited[val.From] {
-				if dist[v.From]+val.Distance < dist[val.From] {
-					if v.From != startTIPLOC {
-						debugOutput := fmt.Sprintf("queueing %s from %s. From: %v, line code %s. Queue size: %v", v.From, v.To, v.Distance, v.LineCode, pq.Size())
-						//fmt.Println(debugOutput)
-						sections = append(sections, debugOutput)
-					}
-
-					store := models.RouteSection{
-						From:               val.From,
-						To:                 val.To,
-						CumulativeDistance: dist[v.From] + val.Distance,
-						Distance:           val.Distance,
-						LineCode:           val.LineCode,
-					}
-					dist[val.From] = dist[v.From] + val.Distance
-					prev[val.From] = v.From
-					pq.Enqueue(store)
-				}
+		visited[currTIPLOC.To] = true
+		connectedTIPLOCs := g.RouteSections[currTIPLOC.To]
+		for _, connectedTIPLOC := range connectedTIPLOCs {
+			if visited[connectedTIPLOC.To] {
+				continue
 			}
+
+			newDistance := dist[currTIPLOC.To]+connectedTIPLOC.Distance
+			if newDistance < dist[connectedTIPLOC.To] {
+				debugOutput := fmt.Sprintf("queueing %s from %s. From: %v, line code %s. Queue size: %v", currTIPLOC.To, currTIPLOC.From, currTIPLOC.Distance, currTIPLOC.LineCode, pq.Size())
+				sections = append(sections, debugOutput)
+
+				routeSection := models.RouteSection{
+					To:                 connectedTIPLOC.To,
+					From:               connectedTIPLOC.From,
+					CumulativeDistance: newDistance,
+					Distance:           connectedTIPLOC.Distance,
+					LineCode:           connectedTIPLOC.LineCode,
+				}
+				dist[connectedTIPLOC.To] = newDistance  // update distance to the connected TIPLOC
+				prev[connectedTIPLOC.To] = currTIPLOC.To // Add connected TIPLOC to the shortest route
+				pq.Enqueue(routeSection)
+			}
+
 		}
 	}
-	//fmt.Println("prevs", prev)
 	pathVal := prev[endTIPLOC] //start at the end
 	var finalArr []string
 	finalArr = append(finalArr, endTIPLOC)
 	for pathVal != startTIPLOC {
-		//step back though the previous KV pairs of track sections in the prev array
+		//step back though the previous pairs of track sections in the route
 		//and append them
 		finalArr = append(finalArr, pathVal)
 		pathVal = prev[pathVal]
