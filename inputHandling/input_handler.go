@@ -7,7 +7,6 @@ import (
 	"github.com/judewood/routeDistances/domain"
 	"github.com/judewood/routeDistances/fileStore"
 	"github.com/judewood/routeDistances/models"
-	"github.com/judewood/routeDistances/routes"
 )
 
 type InputStruct struct {
@@ -20,20 +19,20 @@ func New(fileHandler domain.FileStore) *InputStruct {
 	}
 }
 
-func (d *InputStruct) GetInputData() (*[]routes.Edge, error) {
+func (d *InputStruct) GetInputData() (*[]models.RouteSection, error) {
 	input, err := d.fileHandler.ReadFile()
 	if err != nil {
-		return &[]routes.Edge{}, err
+		return &[]models.RouteSection{}, err
 	}
 	noDuplicates := RemoveDuplicates(input)
 	inputData := createInputData(noDuplicates)
 	return inputData, nil
 }
 
-func createInputData(routeSections *[]models.RouteSection) *[]routes.Edge {
-	var inputData []routes.Edge
+func createInputData(routeSections *[]models.RouteSection) *[]models.RouteSection {
+	var inputData []models.RouteSection
 	for _, v := range *(*[]models.RouteSection)(routeSections) {
-		item := routes.Edge{From: v.From, To: v.To, DistanceFrom: v.DistanceFrom}
+		item := models.RouteSection{From: v.From, To: v.To, Distance: v.Distance}
 		inputData = append(inputData, item)
 	}
 	return &inputData
@@ -49,11 +48,11 @@ func RemoveDuplicates(input *[]models.RouteSection) *[]models.RouteSection {
 		skip := false
 		for _, u := range distinct {
 			if v.From == u.From && v.To == u.To {
-				if v.DistanceFrom != u.DistanceFrom {
-					duplicate := fmt.Sprintf("%s to %s duplicate found. 1st Distance: %v, Line Code %s . 2nd Distance: %v, Line Code %s", v.From, v.To, v.DistanceFrom, v.LineCode, u.DistanceFrom, u.LineCode)
+				if v.Distance != u.Distance {
+					duplicate := fmt.Sprintf("%s to %s duplicate found. 1st Distance: %v, Line Code %s . 2nd Distance: %v, Line Code %s", v.From, v.To, v.Distance, v.LineCode, u.Distance, u.LineCode)
 					duplicates = append(duplicates, duplicate)
 					//use the shortest
-					v.DistanceFrom = min(v.DistanceFrom, u.DistanceFrom)
+					v.Distance = min(v.Distance, u.Distance)
 				}
 				skip = true
 				break

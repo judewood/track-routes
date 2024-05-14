@@ -18,7 +18,7 @@ func New(fileHandler domain.FileStore) *OutputStruct {
 	}
 }
 
-func (s *OutputStruct) OutputRoutes(inputData *[]routes.Edge, routes *[]models.StartEnd) (int, error) {
+func (s *OutputStruct) OutputRoutes(inputData *[]models.RouteSection, routes *[]models.StartEnd) (int, error) {
 	doneChannels := make([]chan models.RouteDistance, len(*routes))
 	for i := range doneChannels {
 		doneChannels[i] = make(chan models.RouteDistance)
@@ -83,11 +83,11 @@ func GetSampleRoutes() *[]models.StartEnd {
 	return &outputSample
 }
 
-func getResult(route models.StartEnd, inputData *[]routes.Edge, doneChan chan models.RouteDistance) {
+func getResult(route models.StartEnd, inputData *[]models.RouteSection, doneChan chan models.RouteDistance) {
 	inputGraph := routes.CreateInputGraph(inputData, route.From, route.To)
 	routesGraph := routes.CreateGraph(inputGraph)
-	TIPLOCsAreConnected := routes.TIPLOCsAreConnected(route.From, route.To, routesGraph, len(*inputData))
-	if !TIPLOCsAreConnected {
+	routeIsConnected := routes.TIPLOCsAreConnected(route.From, route.To, routesGraph, len(*inputData))
+	if !routeIsConnected {
 		fmt.Printf("TIPLOCs %s and %s are not connected. Setting distance to -1", route.From, route.To)
 		unconnected := models.RouteDistance{
 			From:      route.From,
@@ -98,7 +98,7 @@ func getResult(route models.StartEnd, inputData *[]routes.Edge, doneChan chan mo
 		doneChan <- unconnected
 		return
 	}
-	numTracks, distance := routes.GetShortestPath(route.From, route.To, routesGraph)
+	numTracks, distance := routes.GetShortestRoute(route.From, route.To, routesGraph)
 
 	r := models.RouteDistance{
 		From:      route.From,

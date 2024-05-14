@@ -5,16 +5,17 @@ import (
 	"math"
 
 	"github.com/judewood/routeDistances/fileStore"
+	"github.com/judewood/routeDistances/models"
 )
 
-func TIPLOCsAreConnected(startNode string, endNode string, g *ItemGraph, routeSectionCount int) bool {
+func TIPLOCsAreConnected(startTIPLOC string, endTIPLOC string, g *ItemGraph, routeSectionCount int) bool {
 	visited := make(map[string]bool)
 	q := Queue{}
 	pq := q.NewQ()
-	start := Edge{
-		From:     startNode,
-		Distance: 0,
-		LineCode: "",
+	start := models.RouteSection{
+		From:               startTIPLOC,
+		CumulativeDistance: 0,
+		LineCode:           "",
 	}
 	pq.Enqueue(start)
 	for !pq.IsEmpty() {
@@ -22,17 +23,17 @@ func TIPLOCsAreConnected(startNode string, endNode string, g *ItemGraph, routeSe
 		if visited[v.From] {
 			continue
 		}
-		visited[v.From] = true  //and mark it as visited
-		near := g.Edges[v.From] //get its neighbours
+		visited[v.From] = true          //and mark it as visited
+		near := g.RouteSections[v.From] //get its neighbours
 		for _, val := range near {
-			if val.From == endNode {
+			if val.From == endTIPLOC {
 				return true
 			}
 			if !visited[val.From] {
-				data := Edge{
-					From:     val.From,
-					Distance: 0,
-					LineCode: val.LineCode,
+				data := models.RouteSection{
+					From:               val.From,
+					CumulativeDistance: 0,
+					LineCode:           val.LineCode,
 				}
 				pq.Enqueue(data) //add not visited TIPLOC to the queue
 			}
@@ -41,7 +42,7 @@ func TIPLOCsAreConnected(startNode string, endNode string, g *ItemGraph, routeSe
 	return false
 }
 
-func GetShortestPath(startNode string, endNode string, g *ItemGraph) (int, int) {
+func GetShortestRoute(startTIPLOC string, endTIPLOC string, g *ItemGraph) (int, int) {
 	var sections []string
 
 	visited := make(map[string]bool)
@@ -49,41 +50,41 @@ func GetShortestPath(startNode string, endNode string, g *ItemGraph) (int, int) 
 	prev := make(map[string]string)
 	q := Queue{}
 	pq := q.NewQ()
-	startEdge := Edge{
-		From:     startNode,
-		To:       "", // there is no previous TIPLOC
-		Distance: 0,
-		LineCode: "",
+	startRouteSection := models.RouteSection{
+		From:               startTIPLOC,
+		To:                 "", // there is no previous TIPLOC
+		CumulativeDistance: 0,
+		LineCode:           "",
 	}
 	for _, nval := range g.TIPLOCs {
 		dist[*nval] = math.MaxInt64 //set initial distances to each TIPLOC to max value
 	}
-	dist[startNode] = startEdge.Distance // then set distance to start TIPLOC to zero
-	pq.Enqueue(startEdge)
+	dist[startTIPLOC] = startRouteSection.CumulativeDistance // then set distance to start TIPLOC to zero
+	pq.Enqueue(startRouteSection)
 	for !pq.IsEmpty() {
 		v := pq.Dequeue()
 		if visited[v.From] {
 			continue
 		}
 		visited[v.From] = true
-		near := g.Edges[v.From] //get edges for current TIPLOC
+		near := g.RouteSections[v.From] //get sections connected to current TIPLOC
 		for _, val := range near {
 			if !visited[val.From] {
-				if dist[v.From]+val.DistanceFrom < dist[val.From] {
-					if v.From != startNode {
-						debugOutput := fmt.Sprintf("queueing %s from %s. From: %v, line code %s. Queue size: %v", v.From, v.To, v.DistanceFrom, v.LineCode, pq.Size())
+				if dist[v.From]+val.Distance < dist[val.From] {
+					if v.From != startTIPLOC {
+						debugOutput := fmt.Sprintf("queueing %s from %s. From: %v, line code %s. Queue size: %v", v.From, v.To, v.Distance, v.LineCode, pq.Size())
 						//fmt.Println(debugOutput)
 						sections = append(sections, debugOutput)
 					}
 
-					store := Edge{
-						From:         val.From,
-						To:           val.To,
-						Distance:     dist[v.From] + val.DistanceFrom,
-						DistanceFrom: val.DistanceFrom,
-						LineCode:     val.LineCode,
+					store := models.RouteSection{
+						From:               val.From,
+						To:                 val.To,
+						CumulativeDistance: dist[v.From] + val.Distance,
+						Distance:           val.Distance,
+						LineCode:           val.LineCode,
 					}
-					dist[val.From] = dist[v.From] + val.DistanceFrom
+					dist[val.From] = dist[v.From] + val.Distance
 					prev[val.From] = v.From
 					pq.Enqueue(store)
 				}
@@ -91,10 +92,10 @@ func GetShortestPath(startNode string, endNode string, g *ItemGraph) (int, int) 
 		}
 	}
 	//fmt.Println("prevs", prev)
-	pathVal := prev[endNode] //start at the end
+	pathVal := prev[endTIPLOC] //start at the end
 	var finalArr []string
-	finalArr = append(finalArr, endNode)
-	for pathVal != startNode {
+	finalArr = append(finalArr, endTIPLOC)
+	for pathVal != startTIPLOC {
 		//step back though the previous KV pairs of track sections in the prev array
 		//and append them
 		finalArr = append(finalArr, pathVal)
@@ -107,14 +108,6 @@ func GetShortestPath(startNode string, endNode string, g *ItemGraph) (int, int) 
 	}
 	fileStore.WriteDebug("finalArray.txt", &finalArr)
 	fileStore.WriteDebug("debugOutput.txt", &sections)
-	numTrackSections := len(finalArr) - 1 //one less than the number of nodes
-	return numTrackSections, dist[endNode]
-}
-
-type Edge struct {
-	From         string
-	To           string
-	Distance     int
-	DistanceFrom int
-	LineCode     string
+	numTrackSections := len(finalArr) - 1 //one less than the number of TIPLOCs in the route
+	return numTrackSections, dist[endTIPLOC]
 }

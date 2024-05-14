@@ -2,50 +2,52 @@ package routes
 
 import (
 	"sync"
+
+	"github.com/judewood/routeDistances/models"
 )
 
 type ItemGraph struct {
-	TIPLOCs []*string
-	Edges   map[string][]*Edge
-	Lock    sync.RWMutex
+	TIPLOCs       []*string
+	RouteSections map[string][]*models.RouteSection
+	Lock          sync.RWMutex
 }
 
 func CreateGraph(data InputGraph) *ItemGraph {
 	var g ItemGraph
-	nodes := make(map[string]string)
-	for _, v := range data.Edges {
-		if _, found := nodes[v.To]; !found {
-			nodes[v.To] = v.To
-			g.AddTIPLOC(&v.To)
+	TIPLOCs := make(map[string]string) //dictionary key: TIPLOC and value = TIPLOC
+	for _, v := range data.RouteSections {
+		if _, found := TIPLOCs[v.To]; !found {
+			TIPLOCs[v.To] = v.To
+			g.AddTIPLOC(v.To)
 		}
-		if _, found := nodes[v.From]; !found {
-			nodes[v.From] = v.From
-			g.AddTIPLOC(&v.From)
+		if _, found := TIPLOCs[v.From]; !found {
+			TIPLOCs[v.From] = v.From
+			g.AddTIPLOC(v.From)
 		}
-		g.AddRouteSection(nodes[v.To], nodes[v.From], v.DistanceFrom, v.LineCode)
+		g.AddRouteSection(TIPLOCs[v.To], TIPLOCs[v.From], v.Distance, v.LineCode)
 	}
 	return &g
 }
 
 // AddTIPLOC adds a TIPLOC to the graph
-func (g *ItemGraph) AddTIPLOC(n *string) {
+func (g *ItemGraph) AddTIPLOC(n string) {
 	g.Lock.Lock()
 	defer g.Lock.Unlock()
-	g.TIPLOCs = append(g.TIPLOCs, n)
+	g.TIPLOCs = append(g.TIPLOCs, &n)
 }
 
-// AddRouteSection adds an edge to the graph
+// AddRouteSection adds a route section to the graph
 func (g *ItemGraph) AddRouteSection(from, to string, distanceFrom int, lineCode string) {
 	g.Lock.Lock()
 	defer g.Lock.Unlock()
-	if g.Edges == nil {
-		g.Edges = make(map[string][]*Edge)
+	if g.RouteSections == nil {
+		g.RouteSections = make(map[string][]*models.RouteSection)
 	}
-	edge := Edge{
-		From:         to,
-		To:           from,
-		DistanceFrom: distanceFrom,
-		LineCode:     lineCode,
+	routeSection := models.RouteSection{
+		From:     to,
+		To:       from,
+		Distance: distanceFrom,
+		LineCode: lineCode,
 	}
-	g.Edges[from] = append(g.Edges[from], &edge)
+	g.RouteSections[from] = append(g.RouteSections[from], &routeSection)
 }
