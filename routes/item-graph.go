@@ -5,49 +5,47 @@ import (
 )
 
 type ItemGraph struct {
-	Nodes []*Node
-	Edges map[Node][]*Edge
-	Lock  sync.RWMutex
+	TIPLOCs []*string
+	Edges   map[string][]*Edge
+	Lock    sync.RWMutex
 }
 
 func CreateGraph(data InputGraph) *ItemGraph {
 	var g ItemGraph
-	nodes := make(map[string]*Node)
-	for _, v := range data.InputData {
+	nodes := make(map[string]string)
+	for _, v := range data.Edges {
 		if _, found := nodes[v.To]; !found {
-			nA := Node{v.To}
-			nodes[v.To] = &nA
-			g.AddNode(&nA)
+			nodes[v.To] = v.To
+			g.AddTIPLOC(&v.To)
 		}
 		if _, found := nodes[v.From]; !found {
-			nA := Node{v.From}
-			nodes[v.From] = &nA
-			g.AddNode(&nA)
+			nodes[v.From] = v.From
+			g.AddTIPLOC(&v.From)
 		}
-		g.AddEdge(nodes[v.To], nodes[v.From], v.DistanceFrom, v.LineCode)
+		g.AddRouteSection(nodes[v.To], nodes[v.From], v.DistanceFrom, v.LineCode)
 	}
 	return &g
 }
 
-// AddNode adds a node to the graph
-func (g *ItemGraph) AddNode(n *Node) {
+// AddTIPLOC adds a TIPLOC to the graph
+func (g *ItemGraph) AddTIPLOC(n *string) {
 	g.Lock.Lock()
 	defer g.Lock.Unlock()
-	g.Nodes = append(g.Nodes, n)
+	g.TIPLOCs = append(g.TIPLOCs, n)
 }
 
-// AddEdge adds an edge to the graph
-func (g *ItemGraph) AddEdge(fromNode, toNode *Node, distanceFrom int, lineCode string) {
+// AddRouteSection adds an edge to the graph
+func (g *ItemGraph) AddRouteSection(from, to string, distanceFrom int, lineCode string) {
 	g.Lock.Lock()
 	defer g.Lock.Unlock()
 	if g.Edges == nil {
-		g.Edges = make(map[Node][]*Edge)
+		g.Edges = make(map[string][]*Edge)
 	}
-	ed1 := Edge{
-		FromNode:     toNode,
-		ToNode:       fromNode,
+	edge := Edge{
+		From:         to,
+		To:           from,
 		DistanceFrom: distanceFrom,
 		LineCode:     lineCode,
 	}
-	g.Edges[*fromNode] = append(g.Edges[*fromNode], &ed1)
+	g.Edges[from] = append(g.Edges[from], &edge)
 }

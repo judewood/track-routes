@@ -2,13 +2,13 @@ package routes
 
 import "sync"
 
-type NodeQueue struct {
-	Items []Vertex
+type Queue struct {
+	Items []Edge
 	Lock  sync.RWMutex
 }
 
-// Enqueue adds an Node to the end of the queue
-func (s *NodeQueue) Enqueue(t Vertex) {
+// Enqueue adds an Item to the end of the queue
+func (s *Queue) Enqueue(t Edge) {
 	s.Lock.Lock()
 	defer s.Lock.Unlock()
 	if len(s.Items) == 0 {
@@ -23,7 +23,7 @@ func (s *NodeQueue) Enqueue(t Vertex) {
 				s.Items[k] = t
 				insertFlag = true
 			} else {
-				s.Items = append([]Vertex{t}, s.Items...)
+				s.Items = append([]Edge{t}, s.Items...)
 				insertFlag = true
 			}
 		}
@@ -36,8 +36,8 @@ func (s *NodeQueue) Enqueue(t Vertex) {
 	}
 }
 
-// Dequeue removes an Node from the start of the queue
-func (s *NodeQueue) Dequeue() *Vertex {
+// Dequeue removes an Item from the start of the queue
+func (s *Queue) Dequeue() *Edge {
 	s.Lock.Lock()
 	defer s.Lock.Unlock()
 	item := s.Items[0]
@@ -46,22 +46,22 @@ func (s *NodeQueue) Dequeue() *Vertex {
 }
 
 // NewQ Creates New Queue
-func (s *NodeQueue) NewQ() *NodeQueue {
+func (s *Queue) NewQ() *Queue {
 	s.Lock.Lock()
 	defer s.Lock.Unlock()
-	s.Items = []Vertex{}
+	s.Items = []Edge{}
 	return s
 }
 
 // IsEmpty returns true if the queue is empty
-func (s *NodeQueue) IsEmpty() bool {
+func (s *Queue) IsEmpty() bool {
 	s.Lock.RLock()
 	defer s.Lock.RUnlock()
 	return len(s.Items) == 0
 }
 
 // Size returns the number of Nodes in the queue
-func (s *NodeQueue) Size() int {
+func (s *Queue) Size() int {
 	s.Lock.RLock()
 	defer s.Lock.RUnlock()
 	return len(s.Items)

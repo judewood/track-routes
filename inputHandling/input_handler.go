@@ -20,20 +20,20 @@ func New(fileHandler domain.FileStore) *InputStruct {
 	}
 }
 
-func (d *InputStruct) GetInputData() (*[]routes.InputData, error) {
+func (d *InputStruct) GetInputData() (*[]routes.Edge, error) {
 	input, err := d.fileHandler.ReadFile()
 	if err != nil {
-		return &[]routes.InputData{}, err
+		return &[]routes.Edge{}, err
 	}
 	noDuplicates := RemoveDuplicates(input)
 	inputData := createInputData(noDuplicates)
 	return inputData, nil
 }
 
-func createInputData(routeSections *[]models.RouteSection) *[]routes.InputData {
-	var inputData []routes.InputData
+func createInputData(routeSections *[]models.RouteSection) *[]routes.Edge {
+	var inputData []routes.Edge
 	for _, v := range *(*[]models.RouteSection)(routeSections) {
-		item := routes.InputData{From: v.From, To: v.To, DistanceFrom: v.DistanceFrom}
+		item := routes.Edge{From: v.From, To: v.To, DistanceFrom: v.DistanceFrom}
 		inputData = append(inputData, item)
 	}
 	return &inputData

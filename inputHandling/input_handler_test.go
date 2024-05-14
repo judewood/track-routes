@@ -29,7 +29,7 @@ func TestGetInputData(t *testing.T) {
 		},
 	}
 
-	expectedInputData := []routes.InputData{
+	expectedInputData := []routes.Edge{
 		{
 			From:         "A",
 			To:           "B",

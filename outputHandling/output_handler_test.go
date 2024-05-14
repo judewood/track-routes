@@ -12,7 +12,7 @@ import (
 
 func TestOutputRoutes(t *testing.T) {
 
-	inputData := []routes.InputData{
+	inputData := []routes.Edge{
 		{
 			To:           "A",
 			From:         "B",
@@ -58,7 +58,7 @@ func TestOutputRoutes(t *testing.T) {
 }
 
 func TestUnconnectedStartAndEnd(t *testing.T) {
-	inputData := []routes.InputData{
+	inputData := []routes.Edge{
 		{
 			To:           "A",
 			From:         "B",
