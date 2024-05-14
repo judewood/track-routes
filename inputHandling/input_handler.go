@@ -32,7 +32,7 @@ func (d *InputStruct) GetInputData() (*[]models.RouteSection, error) {
 func createInputData(routeSections *[]models.RouteSection) *[]models.RouteSection {
 	var inputData []models.RouteSection
 	for _, v := range *(*[]models.RouteSection)(routeSections) {
-		item := models.RouteSection{From: v.From, To: v.To, Distance: v.Distance}
+		item := models.RouteSection{To: v.To, From: v.From, Distance: v.Distance}
 		inputData = append(inputData, item)
 	}
 	return &inputData
@@ -43,13 +43,13 @@ func RemoveDuplicates(input *[]models.RouteSection) *[]models.RouteSection {
 	var distinct []models.RouteSection
 
 	for _, v := range *input {
-		v.From = clean(v.From)
 		v.To = clean(v.To)
+		v.From = clean(v.From)
 		skip := false
 		for _, u := range distinct {
-			if v.From == u.From && v.To == u.To {
+			if v.To == u.To && v.From == u.From {
 				if v.Distance != u.Distance {
-					duplicate := fmt.Sprintf("%s to %s duplicate found. 1st Distance: %v, Line Code %s . 2nd Distance: %v, Line Code %s", v.From, v.To, v.Distance, v.LineCode, u.Distance, u.LineCode)
+					duplicate := fmt.Sprintf("%s to %s duplicate found. 1st Distance: %v, Line Code %s . 2nd Distance: %v, Line Code %s", v.To, v.From, v.Distance, v.LineCode, u.Distance, u.LineCode)
 					duplicates = append(duplicates, duplicate)
 					//use the shortest
 					v.Distance = min(v.Distance, u.Distance)

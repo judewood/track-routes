@@ -1,3 +1,5 @@
+queueing THURSO from . From: 0, line code . Queue size: 0
+queueing THURSO from . From: 0, line code . Queue size: 1
 queueing GRGMASJ from THURSO. From: 10621, line code . Queue size: 0
 queueing GRGMASJ from THURSO. From: 10621, line code . Queue size: 1
 queueing GRGMASJ from THURSO. From: 10621, line code . Queue size: 2

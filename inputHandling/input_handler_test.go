@@ -12,36 +12,36 @@ import (
 func TestGetInputData(t *testing.T) {
 	var fileData = []models.RouteSection{
 		{
-			From:     "A",
-			To:       "B",
+			To:       "A",
+			From:     "B",
 			Distance: 4,
 		},
 		{
-			From:     "C",
-			To:       "B",
+			To:       "C",
+			From:     "B",
 			Distance: 1,
 		},
 		{
-			From:     "B",
-			To:       "C",
+			To:       "B",
+			From:     "C",
 			Distance: 2,
 		},
 	}
 
 	expectedInputData := []models.RouteSection{
 		{
-			From:     "A",
-			To:       "B",
+			To:       "A",
+			From:     "B",
 			Distance: 4,
 		},
 		{
-			From:     "C",
-			To:       "B",
+			To:       "C",
+			From:     "B",
 			Distance: 1,
 		},
 		{
-			From:     "B",
-			To:       "C",
+			To:       "B",
+			From:     "C",
 			Distance: 2,
 		},
 	}
