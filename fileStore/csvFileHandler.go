@@ -1,7 +1,6 @@
 package fileStore
 
 import (
-	"fmt"
 	"log"
 	"os"
 
@@ -42,7 +41,7 @@ func (f *FileStore) ReadFile() (*[]models.RouteSection, error) {
 	return &routeSections, nil
 }
 
-func (f *FileStore) WriteFile(records *[]models.RouteDistance) (int, error) {
+func (f *FileStore) WriteOutputFile(records *[]models.RouteDistance) (int, error) {
 	file, err := os.Create(f.outputFile)
 	if err != nil {
 		// handle error
@@ -60,22 +59,21 @@ func (f *FileStore) WriteFile(records *[]models.RouteDistance) (int, error) {
 	return len(*records), nil
 }
 
-func WriteDebug(filename string, items *[]string, ) (int, error) {
+func (f *FileStore) WriteDetailFile(filename string, records *[]models.RouteSection) (int, error) {
 	file, err := os.Create(filename)
 	if err != nil {
 		// handle error
-		msg := fmt.Sprintf("Could not create file %s", filename)
-		log.Fatal(msg)
+		log.Fatal("Could not create output file")
 		return 0, err
 	}
 
 	// Ensure file is closed before exiting function
 	defer file.Close()
-	for _, line := range *items {
-        _, err := file.WriteString(line + "\n")
-        if err != nil {
-            log.Fatal(err)
-        }
-    }
-	return len(*items), nil
+	err = gocsv.MarshalFile(records, file)
+	if err != nil {
+		log.Fatal("Error while writing output file", err)
+		return 0, err
+	}
+	return len(*records), nil
 }
+

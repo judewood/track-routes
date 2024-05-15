@@ -44,7 +44,8 @@ func TestOutputRoutes(t *testing.T) {
 	}
 
 	mockFileStore := new(mocks.FileStore)
-	mockFileStore.On("WriteFile").Return(3, nil)
+	mockFileStore.On("WriteOutputFile").Return(3, nil)
+	mockFileStore.On("WriteDetailFile").Return(3, nil)
 
 	outputHandler := New(mockFileStore)
 	numRecords, err := outputHandler.OutputRoutes(&inputData, &sampleRoutes)
@@ -53,7 +54,8 @@ func TestOutputRoutes(t *testing.T) {
 	fmt.Println(inputData)
 	assert.Equal(t, 3, numRecords)
 	mockFileStore.AssertExpectations(t)
-	mockFileStore.AssertNumberOfCalls(t, "WriteFile", 1)
+	mockFileStore.AssertNumberOfCalls(t, "WriteOutputFile", 1)
+	mockFileStore.AssertNumberOfCalls(t, "WriteDetailFile", 2)
 }
 
 func TestUnconnectedStartAndEnd(t *testing.T) {
@@ -77,12 +79,12 @@ func TestUnconnectedStartAndEnd(t *testing.T) {
 		},
 	}
 	mockFileStore := new(mocks.FileStore)
-	mockFileStore.On("WriteFile").Return(0, nil)
+	mockFileStore.On("WriteOutputFile").Return(0, nil)
 
 	outputHandler := New(mockFileStore)
 	numRecords, err := outputHandler.OutputRoutes(&inputData, &sampleRoutes)
 	assert.NoError(t, err)
 	assert.Equal(t, 0, numRecords)
 	mockFileStore.AssertExpectations(t)
-	mockFileStore.AssertNumberOfCalls(t, "WriteFile", 1)
+	mockFileStore.AssertNumberOfCalls(t, "WriteOutputFile", 1)
 }

@@ -57,4 +57,5 @@ func TestGetInputData(t *testing.T) {
 	assert.Equal(t, &expectedInputData, inputData)
 	mockFileStore.AssertExpectations(t)
 	mockFileStore.AssertNumberOfCalls(t, "ReadFile", 1)
+	mockFileStore.AssertNumberOfCalls(t, "WriteDetailFile", 0)
 }

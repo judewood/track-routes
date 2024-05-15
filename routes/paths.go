@@ -1,11 +1,10 @@
 package routes
 
 import (
-	"fmt"
 	"math"
 
-	"github.com/judewood/routeDistances/fileStore"
 	"github.com/judewood/routeDistances/models"
+	"github.com/judewood/routeDistances/utils"
 )
 
 func TIPLOCsAreConnected(startTIPLOC string, endTIPLOC string, g *ItemGraph, routeSectionCount int) bool {
@@ -20,7 +19,7 @@ func TIPLOCsAreConnected(startTIPLOC string, endTIPLOC string, g *ItemGraph, rou
 	}
 	pq.Enqueue(start)
 	for !pq.IsEmpty() {
-		v := pq.Dequeue() //take next item form the queue
+		v := pq.Dequeue() //take next item from the queue
 		if visited[v.To] {
 			continue
 		}
@@ -43,7 +42,9 @@ func TIPLOCsAreConnected(startTIPLOC string, endTIPLOC string, g *ItemGraph, rou
 	return false
 }
 
-func GetShortestRoute(startTIPLOC string, endTIPLOC string, g *ItemGraph) (int, int) {
+func GetShortestRoute(startTIPLOC string, endTIPLOC string, g *ItemGraph) (int, int, *[]models.RouteSection) {
+	var routeDetail []models.RouteSection
+	var totalDistance int = 0
 	visited := make(map[string]bool)
 	dist := make(map[string]int)
 	prev := make(map[string]models.RouteSection)
@@ -52,6 +53,7 @@ func GetShortestRoute(startTIPLOC string, endTIPLOC string, g *ItemGraph) (int, 
 	startRouteSection := models.RouteSection{
 		To:                 startTIPLOC,
 		From:               "", // there is no previous TIPLOC
+		Distance: 0,
 		CumulativeDistance: 0,
 		LineCode:           "",
 	}
@@ -89,10 +91,11 @@ func GetShortestRoute(startTIPLOC string, endTIPLOC string, g *ItemGraph) (int, 
 
 		}
 	}
-	var debugOutput []string
+
 	pathVal := prev[endTIPLOC] //start at the end
-	debugSection := fmt.Sprintf("Route section. From %s to %s. Section distance %v. Line Code %s", pathVal.From, pathVal.To, pathVal.Distance, pathVal.LineCode)
-	debugOutput = append(debugOutput, debugSection)
+	totalDistance += pathVal.Distance
+	//debugSection := fmt.Sprintf("%s,%s,%v,%s,%v", pathVal.From, pathVal.To, pathVal.Distance, pathVal.LineCode, totalDistance)
+	routeDetail = append(routeDetail, pathVal)
 	var finalArr []string
 	finalArr = append(finalArr, endTIPLOC)
 	for pathVal.From != startTIPLOC {
@@ -100,15 +103,11 @@ func GetShortestRoute(startTIPLOC string, endTIPLOC string, g *ItemGraph) (int, 
 		//and append them
 		finalArr = append(finalArr, pathVal.From)
 		pathVal = prev[pathVal.From]
-		debugSection := fmt.Sprintf("Route section. From %s to %s. Section distance %v. Line Code %s", pathVal.From, pathVal.To, pathVal.Distance, pathVal.LineCode)
-		debugOutput = append(debugOutput, debugSection)
+		routeDetail = append(routeDetail, pathVal)
 	}
 	finalArr = append(finalArr, pathVal.From) //this will be the start TIPLOC
-	//reverse the array so it is ordered start to end
-	for i, j := 0, len(finalArr)-1; i < j; i, j = i+1, j-1 {
-		finalArr[i], finalArr[j] = finalArr[j], finalArr[i]
-	}
-	fileStore.WriteDebug("debugOutput.txt", &debugOutput)
-	numTrackSections := len(finalArr) - 1 //one less than the number of TIPLOCs in the route
-	return numTrackSections, dist[endTIPLOC]
+	reversedFinalArr := utils.ReverseCollection(&finalArr);
+	reversedRouteDetail := utils.ReverseCollection(&routeDetail)
+	numTrackSections := len(*reversedFinalArr) - 1 //one less than the number of TIPLOCs in the route
+	return numTrackSections, dist[endTIPLOC],reversedRouteDetail
 }
