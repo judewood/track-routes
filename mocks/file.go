@@ -19,8 +19,15 @@ func (f *FileStore) ReadFile() (*[]models.RouteSection, error) {
 	return args.Get(0).(*[]models.RouteSection), args.Error(1)
 }
 
-// WriteFile returns error if provided in constructor, else returns number of lines written to file
-func (f *FileStore) WriteFile(records *[]models.RouteDistance) (int, error) {
+// WriteOutputFile returns error if provided in constructor, else returns number of lines written to file
+func (f *FileStore) WriteOutputFile(records *[]models.RouteDistance) (int, error) {
+	fmt.Println("\nMocked WriteFile function")
+	args := f.Called()
+	return args.Get(0).(int), args.Error(1)
+}
+
+// WriteOutputFile returns error if provided in constructor, else returns number of lines written to file
+func (f *FileStore) WriteDetailFile(filename string, records *[]models.RouteSection) (int, error) {
 	fmt.Println("\nMocked WriteFile function")
 	args := f.Called()
 	return args.Get(0).(int), args.Error(1)

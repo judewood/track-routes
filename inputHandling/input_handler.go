@@ -1,11 +1,9 @@
 package inputHandling
 
 import (
-	"fmt"
 	"strings"
 
 	"github.com/judewood/routeDistances/domain"
-	"github.com/judewood/routeDistances/fileStore"
 	"github.com/judewood/routeDistances/models"
 )
 
@@ -24,7 +22,7 @@ func (d *InputStruct) GetInputData() (*[]models.RouteSection, error) {
 	if err != nil {
 		return &[]models.RouteSection{}, err
 	}
-	noDuplicates := RemoveDuplicates(input)
+	noDuplicates := d.RemoveDuplicates(input)
 	inputData := createInputData(noDuplicates)
 	return inputData, nil
 }
@@ -38,8 +36,8 @@ func createInputData(routeSections *[]models.RouteSection) *[]models.RouteSectio
 	return &inputData
 }
 
-func RemoveDuplicates(input *[]models.RouteSection) *[]models.RouteSection {
-	var duplicates []string
+func (d *InputStruct) RemoveDuplicates(input *[]models.RouteSection) *[]models.RouteSection {
+	var duplicates []models.RouteSection
 	var distinct []models.RouteSection
 
 	for _, v := range *input {
@@ -49,8 +47,9 @@ func RemoveDuplicates(input *[]models.RouteSection) *[]models.RouteSection {
 		for _, u := range distinct {
 			if v.To == u.To && v.From == u.From {
 				if v.Distance != u.Distance {
-					duplicate := fmt.Sprintf("%s to %s duplicate found. 1st Distance: %v, Line Code %s . 2nd Distance: %v, Line Code %s", v.To, v.From, v.Distance, v.LineCode, u.Distance, u.LineCode)
-					duplicates = append(duplicates, duplicate)
+					//duplicate := fmt.Sprintf("%s to %s duplicate found. 1st Distance: %v, Line Code %s . 2nd Distance: %v, Line Code %s", v.To, v.From, v.Distance, v.LineCode, u.Distance, u.LineCode)
+					duplicates = append(duplicates, v)
+					duplicates = append(duplicates, u)
 					//use the shortest
 					v.Distance = min(v.Distance, u.Distance)
 				}
@@ -63,7 +62,7 @@ func RemoveDuplicates(input *[]models.RouteSection) *[]models.RouteSection {
 		}
 	}
 	if len(duplicates) > 0 {
-		fileStore.WriteDebug("duplicates.txt", &duplicates)
+		d.fileHandler.WriteDetailFile("duplicates.csv", &duplicates)
 	}
 	return &distinct
 }

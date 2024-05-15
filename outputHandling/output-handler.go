@@ -27,10 +27,10 @@ func (s *OutputStruct) OutputRoutes(inputData *[]models.RouteSection, routes *[]
 	var results []models.RouteDistance
 	for i, val := range *routes {
 		fmt.Println()
-		go getResult(val, inputData, doneChannels[i])
+		go s.getResult(val, inputData, doneChannels[i])
 		results = append(results, <-doneChannels[i])
 	}
-	numRecords, err := s.fileHandler.WriteFile(&results)
+	numRecords, err := s.fileHandler.WriteOutputFile(&results)
 	if err != nil {
 		return 0, err
 	}
@@ -39,51 +39,51 @@ func (s *OutputStruct) OutputRoutes(inputData *[]models.RouteSection, routes *[]
 
 func GetSampleRoutes() *[]models.StartEnd {
 	var outputSample = []models.StartEnd{
-		// {
-		// 	From: "BERKHMD",
-		// 	To:   "TRING",
-		// },
-		// {
-		// 	From: "HYWRDSH",
-		// 	To:   "KEYMERJ",
-		// },
-		// {
-		// 	From: "BERKHMD",
-		// 	To:   "HEMLHMP",
-		// },
-		// {
-		// 	From: "BHAMNWS",
-		// 	To:   "BHAMINT",
-		// },
-		// {
-		// 	From: "BERKHMD",
-		// 	To:   "WATFDJ",
-		// },
-		// {
-		// 	From: "EUSTON",
-		// 	To:   "BERKHMD",
-		// },
+		{
+			From: "BERKHMD",
+			To:   "TRING",
+		},
+		{
+			From: "HYWRDSH",
+			To:   "KEYMERJ",
+		},
+		{
+			From: "BERKHMD",
+			To:   "HEMLHMP",
+		},
+		{
+			From: "BHAMNWS",
+			To:   "BHAMINT",
+		},
+		{
+			From: "BERKHMD",
+			To:   "WATFDJ",
+		},
+		{
+			From: "EUSTON",
+			To:   "BERKHMD",
+		},
 		{
 			From: "MNCRPIC",
 			To:   "CRDFCEN",
 		},
-		// {
-		// 	From: "KNGX",
-		// 	To:   "EDINBUR",
-		// },
-		// {
-		// 	From: "THURSO",
-		// 	To:   "PENZNCE",
-		// },
-		// {
-		// 	From: "PHBR",
-		// 	To:   "RYDP",
-		// },
+		{
+			From: "KNGX",
+			To:   "EDINBUR",
+		},
+		{
+			From: "THURSO",
+			To:   "PENZNCE",
+		},
+		{
+			From: "PHBR",
+			To:   "RYDP",
+		},
 	}
 	return &outputSample
 }
 
-func getResult(route models.StartEnd, inputData *[]models.RouteSection, doneChan chan models.RouteDistance) {
+func (s *OutputStruct) getResult(route models.StartEnd, inputData *[]models.RouteSection, doneChan chan models.RouteDistance) {
 	inputGraph := routes.CreateInputGraph(inputData, route.From, route.To)
 	routesGraph := routes.CreateGraph(inputGraph)
 	routeIsConnected := routes.TIPLOCsAreConnected(route.From, route.To, routesGraph, len(*inputData))
@@ -98,7 +98,7 @@ func getResult(route models.StartEnd, inputData *[]models.RouteSection, doneChan
 		doneChan <- unconnected
 		return
 	}
-	numTracks, distance := routes.GetShortestRoute(route.From, route.To, routesGraph)
+	numTracks, distance, routeDetail := routes.GetShortestRoute(route.From, route.To, routesGraph)
 
 	r := models.RouteDistance{
 		From:      route.From,
@@ -107,5 +107,7 @@ func getResult(route models.StartEnd, inputData *[]models.RouteSection, doneChan
 		NumTracks: numTracks,
 	}
 	fmt.Printf("Route for %s to %s is %v with num tracks %v", route.From, route.To, r.Distance, r.NumTracks)
+	filename := fmt.Sprintf("route-detail-%s-to-%s.csv", route.From, route.To)
+	s.fileHandler.WriteDetailFile(filename, routeDetail)
 	doneChan <- r
 }
