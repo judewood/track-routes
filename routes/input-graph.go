@@ -1,6 +1,9 @@
 package routes
 
-import "github.com/judewood/routeDistances/models"
+import (
+
+	"github.com/judewood/routeDistances/models"
+)
 
 type InputGraph struct {
 	RouteSections []models.RouteSection

@@ -44,11 +44,9 @@ func TIPLOCsAreConnected(startTIPLOC string, endTIPLOC string, g *ItemGraph, rou
 }
 
 func GetShortestRoute(startTIPLOC string, endTIPLOC string, g *ItemGraph) (int, int) {
-	var sections []string
-
 	visited := make(map[string]bool)
 	dist := make(map[string]int)
-	prev := make(map[string]string)
+	prev := make(map[string]models.RouteSection)
 	q := Queue{}
 	pq := q.NewQ()
 	startRouteSection := models.RouteSection{
@@ -75,11 +73,8 @@ func GetShortestRoute(startTIPLOC string, endTIPLOC string, g *ItemGraph) (int, 
 				continue
 			}
 
-			newDistance := dist[currTIPLOC.To]+connectedTIPLOC.Distance
+			newDistance := dist[currTIPLOC.To] + connectedTIPLOC.Distance
 			if newDistance < dist[connectedTIPLOC.To] {
-				debugOutput := fmt.Sprintf("queueing %s from %s. From: %v, line code %s. Queue size: %v", currTIPLOC.To, currTIPLOC.From, currTIPLOC.Distance, currTIPLOC.LineCode, pq.Size())
-				sections = append(sections, debugOutput)
-
 				routeSection := models.RouteSection{
 					To:                 connectedTIPLOC.To,
 					From:               connectedTIPLOC.From,
@@ -88,28 +83,32 @@ func GetShortestRoute(startTIPLOC string, endTIPLOC string, g *ItemGraph) (int, 
 					LineCode:           connectedTIPLOC.LineCode,
 				}
 				dist[connectedTIPLOC.To] = newDistance  // update distance to the connected TIPLOC
-				prev[connectedTIPLOC.To] = currTIPLOC.To // Add connected TIPLOC to the shortest route
+				prev[connectedTIPLOC.To] = routeSection // Add connected TIPLOC to the shortest route
 				pq.Enqueue(routeSection)
 			}
 
 		}
 	}
+	var debugOutput []string
 	pathVal := prev[endTIPLOC] //start at the end
+	debugSection := fmt.Sprintf("Route section. From %s to %s. Section distance %v. Line Code %s", pathVal.From, pathVal.To, pathVal.Distance, pathVal.LineCode)
+	debugOutput = append(debugOutput, debugSection)
 	var finalArr []string
 	finalArr = append(finalArr, endTIPLOC)
-	for pathVal != startTIPLOC {
+	for pathVal.From != startTIPLOC {
 		//step back though the previous pairs of track sections in the route
 		//and append them
-		finalArr = append(finalArr, pathVal)
-		pathVal = prev[pathVal]
+		finalArr = append(finalArr, pathVal.From)
+		pathVal = prev[pathVal.From]
+		debugSection := fmt.Sprintf("Route section. From %s to %s. Section distance %v. Line Code %s", pathVal.From, pathVal.To, pathVal.Distance, pathVal.LineCode)
+		debugOutput = append(debugOutput, debugSection)
 	}
-	finalArr = append(finalArr, pathVal) //this will be the start TIPLOC
+	finalArr = append(finalArr, pathVal.From) //this will be the start TIPLOC
 	//reverse the array so it is ordered start to end
 	for i, j := 0, len(finalArr)-1; i < j; i, j = i+1, j-1 {
 		finalArr[i], finalArr[j] = finalArr[j], finalArr[i]
 	}
-	fileStore.WriteDebug("finalArray.txt", &finalArr)
-	fileStore.WriteDebug("debugOutput.txt", &sections)
+	fileStore.WriteDebug("debugOutput.txt", &debugOutput)
 	numTrackSections := len(finalArr) - 1 //one less than the number of TIPLOCs in the route
 	return numTrackSections, dist[endTIPLOC]
 }

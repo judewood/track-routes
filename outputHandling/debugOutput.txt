@@ -1,2 +1,0 @@
-queueing A from . From: 0, line code . Queue size: 0
-queueing A from . From: 0, line code . Queue size: 1
